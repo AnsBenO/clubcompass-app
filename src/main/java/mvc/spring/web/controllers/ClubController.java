@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jakarta.validation.Valid;
 import javassist.NotFoundException;
 import mvc.spring.web.dto.ClubDto;
-import mvc.spring.web.services.ClubService;
+import mvc.spring.web.services.impl.ClubService;
 
 @Controller
 @RequestMapping("/clubs")
@@ -29,7 +29,7 @@ public class ClubController {
 
     @GetMapping("/all")
     public String listClubs(@NotNull Model model) {
-        List<ClubDto> clubs = clubService.findAllClubs();
+        List<ClubDto> clubs = clubService.findAll();
         model.addAttribute("clubs", clubs);
         return "clubs-list";
     }
@@ -48,7 +48,7 @@ public class ClubController {
         if (result.hasErrors()) {
             return "clubs-create";
         }
-        clubService.saveClub(club);
+        clubService.save(club);
         return "redirect:/clubs/all";
 
     }
@@ -56,7 +56,7 @@ public class ClubController {
     @GetMapping("/{clubId}/edit")
     public String editClubForm(@PathVariable("clubId") long clubId,
             @NotNull Model model) throws NotFoundException {
-        ClubDto club = clubService.findClubById(clubId);
+        ClubDto club = clubService.findById(clubId);
         model.addAttribute("club", club);
         return "clubs-edit";
     }
@@ -70,14 +70,14 @@ public class ClubController {
             return "clubs-edit";
         }
         club.setId(clubId);
-        clubService.updateClub(club);
+        clubService.update(club);
         return "redirect:/clubs/all";
     }
 
     @GetMapping("/{clubId}")
     public String clubDetail(@PathVariable("clubId") long clubId, Model model) throws NotFoundException {
 
-        ClubDto club = clubService.findClubById(clubId);
+        ClubDto club = clubService.findById(clubId);
         model.addAttribute("club", club);
 
         return "clubs-detail";
@@ -86,7 +86,7 @@ public class ClubController {
 
     @GetMapping("/{clubId}/delete")
     public String deleteClub(@PathVariable long clubId) {
-        clubService.deleteClubById(clubId);
+        clubService.deleteById(clubId);
         return "redirect:/clubs/all";
 
     }

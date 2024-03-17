@@ -12,19 +12,19 @@ import javassist.NotFoundException;
 import mvc.spring.web.dto.ClubDto;
 import mvc.spring.web.models.Club;
 import mvc.spring.web.repositories.ClubRepository;
-import mvc.spring.web.services.ClubService;
+import mvc.spring.web.services.CrudService;
 
 @Service
-public class ClubServiceImpl implements ClubService {
+public class ClubService implements CrudService<ClubDto, Long> {
 
     private ClubRepository clubRepository;
 
-    public ClubServiceImpl(ClubRepository clubRepository) {
+    public ClubService(ClubRepository clubRepository) {
         this.clubRepository = clubRepository;
     }
 
     @Override
-    public List<ClubDto> findAllClubs() {
+    public List<ClubDto> findAll() {
         List<Club> clubs = clubRepository.findAll();
         return clubs.stream().map(this::mapToClubDto).collect(Collectors.toList());
 
@@ -32,14 +32,14 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     @Transactional
-    public ClubDto saveClub(ClubDto clubDto) {
+    public ClubDto save(ClubDto clubDto) {
         Club club = mapToClubEntity(clubDto);
         Club addedClub = clubRepository.save(club);
         return mapToClubDto(addedClub);
     }
 
     @Override
-    public ClubDto findClubById(long id) throws NotFoundException {
+    public ClubDto findById(long id) throws NotFoundException {
         Optional<Club> foundClub = clubRepository.findById(id);
         if (foundClub.isPresent()) {
             return mapToClubDto(foundClub.get());
@@ -49,13 +49,13 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public void updateClub(ClubDto clubDto) {
+    public void update(ClubDto clubDto) {
         Club club = mapToClubEntity(clubDto);
         clubRepository.save(club);
     }
 
     @Override
-    public void deleteClubById(long id) {
+    public void deleteById(Long id) {
         Optional<Club> foundClubOptional = clubRepository.findById(id);
         if (foundClubOptional.isPresent()) {
             Club foundClub = foundClubOptional.get();

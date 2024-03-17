@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import mvc.spring.web.dto.ClubDto;
-import mvc.spring.web.services.ClubService;
+import mvc.spring.web.services.impl.ClubService;
 
 @RestController
 @RequestMapping("/clubsRest")
@@ -21,7 +21,7 @@ public class clubRestController {
 
     @GetMapping("/all")
     public List<ClubDto> findAllClubs() {
-        return clubService.findAllClubs();
+        return clubService.findAll();
     }
 
 }
