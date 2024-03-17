@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clubs</title>
+    <link rel="stylesheet" th:href="@{/css/clubs-list.css}">
+</head>
+
+<body>
+    <div layout:fragment="body" class="clubs">
+
+        <div th:each="club : ${clubs}" class="club-container">
+            <div>
+                <img th:src="@{/{image}(image=${club.photoUrl})}" alt="" class="club-image" />
+                <a th:text="${club.title}" th:href="@{/clubs/{clubId}(clubId=${club.id})}" class="club-title"></a>
+                <p class="description" th:text="${club.description}"></p>
+            </div>
+            <div class="buttons">
+                <a href="" class="btn edit" th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}">Edit</a>
+                <a th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}" class="btn delete">Delete</a>
+            </div>
+
+        </div>
+
+
+    </div>
+</body>
+
+</html>

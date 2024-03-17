@@ -1,0 +1,20 @@
+.club-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.club-image img {
+    width: 400px;
+    height: auto;
+}
+
+.club-description {
+    margin-top: 20px;
+}
+
+.club-dates {
+    margin-top: 20px;
+    font-style: italic;
+    color: #666;
+}
