@@ -63,6 +63,11 @@ public class ClubService implements CrudService<ClubDto, Long> {
         }
     }
 
+    public List<ClubDto> search(String query) {
+        List<Club> foundClubs = clubRepository.searchClub(query);
+        return foundClubs.stream().map(this::mapToClubDto).toList();
+    }
+
     private ClubDto mapToClubDto(@NotNull Club club) {
         return ClubDto.builder()
                 .id(club.getId())

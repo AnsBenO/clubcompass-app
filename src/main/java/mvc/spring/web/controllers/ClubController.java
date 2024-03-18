@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 import javassist.NotFoundException;
@@ -31,6 +32,13 @@ public class ClubController {
     public String listClubs(@NotNull Model model) {
         List<ClubDto> clubs = clubService.findAll();
         model.addAttribute("clubs", clubs);
+        return "clubs-list";
+    }
+
+    @GetMapping("/search")
+    public String searchClub(@RequestParam(value = "query") String query, Model model) {
+        List<ClubDto> foundClubs = clubService.search(query);
+        model.addAttribute("clubs", foundClubs);
         return "clubs-list";
     }
 

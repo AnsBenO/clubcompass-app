@@ -19,9 +19,9 @@
             <a th:href="@{/clubs/new}">Create New
                 Club</a>
 
-            <button href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
                 <i class="fa fa-bars"></i>
-            </button>
+            </a>
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -35,7 +35,7 @@
                     }
                 });
             });
-            function myFunction() {
+            function toggleNav() {
                 var x = document.getElementById("myTopnav");
                 if (x.className === "topnav") {
                     x.className += " responsive";
@@ -45,6 +45,7 @@
             }
 
         </script>
+
     </nav>
     <!-- fragment -->
     <main layout:fragment="body">

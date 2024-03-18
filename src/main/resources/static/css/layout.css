@@ -70,20 +70,14 @@ body {
     }
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-}
+
 
 footer {
     background-color: #2F6E71;
     color: #fff;
     text-align: center;
     padding: 20px;
-    position: fixed;
     bottom: 0;
-    width: 100%;
 }
 
 .footer-content {
