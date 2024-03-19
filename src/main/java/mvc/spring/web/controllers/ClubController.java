@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 import javassist.NotFoundException;
 import mvc.spring.web.dto.ClubDto;
-import mvc.spring.web.services.impl.ClubService;
+import mvc.spring.web.services.club.impl.ClubServiceImpl;
 
 @Controller
 @RequestMapping("/clubs")
 public class ClubController {
 
-    private ClubService clubService;
+    private ClubServiceImpl clubService;
 
-    public ClubController(ClubService clubService) {
+    public ClubController(ClubServiceImpl clubService) {
         this.clubService = clubService;
     }
 

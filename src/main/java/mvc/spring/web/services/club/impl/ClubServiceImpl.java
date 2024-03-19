@@ -1,8 +1,7 @@
-package mvc.spring.web.services.impl;
+package mvc.spring.web.services.club.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
@@ -12,21 +11,21 @@ import javassist.NotFoundException;
 import mvc.spring.web.dto.ClubDto;
 import mvc.spring.web.models.Club;
 import mvc.spring.web.repositories.ClubRepository;
-import mvc.spring.web.services.CrudService;
+import mvc.spring.web.services.club.ClubService;
 
 @Service
-public class ClubService implements CrudService<ClubDto, Long> {
+public class ClubServiceImpl implements ClubService {
 
     private ClubRepository clubRepository;
 
-    public ClubService(ClubRepository clubRepository) {
+    public ClubServiceImpl(ClubRepository clubRepository) {
         this.clubRepository = clubRepository;
     }
 
     @Override
     public List<ClubDto> findAll() {
         List<Club> clubs = clubRepository.findAll();
-        return clubs.stream().map(this::mapToClubDto).collect(Collectors.toList());
+        return clubs.stream().map(this::mapToClubDto).toList();
 
     }
 
@@ -63,6 +62,7 @@ public class ClubService implements CrudService<ClubDto, Long> {
         }
     }
 
+    @Override
     public List<ClubDto> search(String query) {
         List<Club> foundClubs = clubRepository.searchClub(query);
         return foundClubs.stream().map(this::mapToClubDto).toList();

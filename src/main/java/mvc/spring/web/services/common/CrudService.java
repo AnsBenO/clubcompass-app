@@ -1,4 +1,4 @@
-package mvc.spring.web.services;
+package mvc.spring.web.services.common;
 
 import java.util.List;
 
