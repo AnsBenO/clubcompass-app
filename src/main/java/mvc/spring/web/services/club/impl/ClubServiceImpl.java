@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javassist.NotFoundException;
 import mvc.spring.web.dto.ClubDto;
@@ -30,7 +29,6 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    @Transactional
     public ClubDto save(ClubDto clubDto) {
         Club club = mapToClubEntity(clubDto);
         Club addedClub = clubRepository.save(club);
