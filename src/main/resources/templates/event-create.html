@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <link rel="stylesheet" th:href="@{/css/form.css}">
+    <title>Create new event</title>
+
+</head>
+
+<body>
+    <div layout:fragment="body" class="new-club">
+        <form role="form" th:object="${event}" th:action="@{/events/{clubId}/new(clubId=${clubId})}" method="post">
+            <h3>Create Event</h3>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" th:field="*{name}" />
+                <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+            <div class="form-group">
+                <label for="content">Content:</label>
+                <textarea id="content" name="content" th:field="*{content}"></textarea>
+                <span class="error" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+            </div>
+            <div class="form-group">
+                <label for="startTime">Start Time:</label>
+                <input type="datetime-local" id="startTime" name="startTime" th:field="*{startTime}" />
+                <span class="error" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"></span>
+            </div>
+            <div class="form-group">
+                <label for="endTime">End Time:</label>
+                <input type="datetime-local" id="endTime" name="endTime" th:field="*{endTime}" />
+                <span class="error" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"></span>
+            </div>
+            <div class="form-group">
+                <label for="type">Type:</label>
+                <input type="text" id="type" name="type" th:field="*{type}" />
+                <span class="error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></span>
+            </div>
+            <div class="form-group">
+                <label for="photoUrl">Photo URL:</label>
+                <input type="text" id="photoUrl" name="photoUrl" th:field="*{photoUrl}" />
+                <span class="error" th:if="${#fields.hasErrors('photoUrl')}" th:errors="*{photoUrl}"></span>
+            </div>
+
+            <!-- Hidden input for the id, assuming it's set by the server -->
+            <input type="hidden" th:field="*{id}" />
+
+            <button type="submit">Create Event</button>
+        </form>
+
+    </div>
+</body>
+
+</html>

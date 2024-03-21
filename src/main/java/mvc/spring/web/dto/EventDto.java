@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mvc.spring.web.models.Club;
 
 @NoArgsConstructor
 @AllArgsConstructor

@@ -31,6 +31,8 @@
                 <div class="buttons">
                     <a href="" class="btn edit" th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}">Edit</a>
                     <a th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}" class="btn delete">Delete</a>
+                    <a th:href="@{/events/{clubId}/new(clubId=${club.id})}" class="btn delete">Create event</a>
+
                 </div>
 
             </div>

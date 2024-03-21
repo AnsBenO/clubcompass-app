@@ -1,10 +1,11 @@
 package mvc.spring.web.services.club.impl;
 
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.jetbrains.annotations.NotNull;
-import org.springframework.stereotype.Service;
 
 import javassist.NotFoundException;
 import mvc.spring.web.dto.ClubDto;
@@ -15,7 +16,7 @@ import mvc.spring.web.services.club.ClubService;
 @Service
 public class ClubServiceImpl implements ClubService {
 
-    private ClubRepository clubRepository;
+    private final ClubRepository clubRepository;
 
     public ClubServiceImpl(ClubRepository clubRepository) {
         this.clubRepository = clubRepository;
@@ -24,8 +25,9 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public List<ClubDto> findAll() {
         List<Club> clubs = clubRepository.findAll();
-        return clubs.stream().map(this::mapToClubDto).toList();
-
+        return clubs.stream()
+                .map(this::mapToClubDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -38,11 +40,8 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public ClubDto findById(long id) throws NotFoundException {
         Optional<Club> foundClub = clubRepository.findById(id);
-        if (foundClub.isPresent()) {
-            return mapToClubDto(foundClub.get());
-        } else {
-            throw new NotFoundException("Club not found with id: " + id);
-        }
+        return foundClub.map(this::mapToClubDto)
+                .orElseThrow(() -> new NotFoundException("Club not found with id: " + id));
     }
 
     @Override
@@ -53,17 +52,16 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public void deleteById(Long id) {
-        Optional<Club> foundClubOptional = clubRepository.findById(id);
-        if (foundClubOptional.isPresent()) {
-            Club foundClub = foundClubOptional.get();
-            clubRepository.delete(foundClub);
-        }
+        clubRepository.findById(id)
+                .ifPresent(clubRepository::delete);
     }
 
     @Override
     public List<ClubDto> search(String query) {
         List<Club> foundClubs = clubRepository.searchClub(query);
-        return foundClubs.stream().map(this::mapToClubDto).toList();
+        return foundClubs.stream()
+                .map(this::mapToClubDto)
+                .collect(Collectors.toList());
     }
 
     private ClubDto mapToClubDto(@NotNull Club club) {
@@ -87,5 +85,4 @@ public class ClubServiceImpl implements ClubService {
                 .updatedAt(clubDto.getUpdatedAt())
                 .build();
     }
-
 }
