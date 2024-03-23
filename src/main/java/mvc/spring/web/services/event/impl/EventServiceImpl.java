@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javassist.NotFoundException;
 import mvc.spring.web.dto.EventDto;
+import mvc.spring.web.mappers.EventMapper;
 import mvc.spring.web.models.Club;
 import mvc.spring.web.models.Event;
 import mvc.spring.web.repositories.ClubRepository;
@@ -34,10 +35,10 @@ public class EventServiceImpl implements EventService {
     public EventDto save(Long clubId, EventDto eventDto) {
         Optional<Club> foundClub = clubRepository.findById(clubId);
         Club club = foundClub.get();
-        Event event = mapToEvent(eventDto);
+        Event event = EventMapper.mapToEvent(eventDto);
         event.setClub(club);
         eventRepository.save(event);
-        return mapToEventDto(event);
+        return EventMapper.mapToEventDto(event);
     }
 
     @Override
@@ -56,33 +57,6 @@ public class EventServiceImpl implements EventService {
     public void deleteById(Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
-    }
-
-    private Event mapToEvent(EventDto eventDto) {
-        return Event.builder()
-                .name(eventDto.getName())
-                .content(eventDto.getContent())
-                .startTime(eventDto.getStartTime())
-                .endTime(eventDto.getEndTime())
-                .type(eventDto.getType())
-                .photoUrl(eventDto.getPhotoUrl())
-                .createdAt(eventDto.getCreatedAt())
-                .updatedAt(eventDto.getUpdatedAt())
-                .build();
-    }
-
-    private EventDto mapToEventDto(Event event) {
-        return EventDto.builder()
-                .id(event.getId())
-                .name(event.getName())
-                .content(event.getContent())
-                .startTime(event.getStartTime())
-                .endTime(event.getEndTime())
-                .type(event.getType())
-                .photoUrl(event.getPhotoUrl())
-                .createdAt(event.getCreatedAt())
-                .updatedAt(event.getUpdatedAt())
-                .build();
     }
 
 }

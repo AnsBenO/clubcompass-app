@@ -1,6 +1,8 @@
 package mvc.spring.web.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -28,4 +30,6 @@ public class ClubDto {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    private List<EventDto> events = new ArrayList<>();
 }
