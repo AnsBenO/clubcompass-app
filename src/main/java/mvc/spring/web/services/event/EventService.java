@@ -3,7 +3,6 @@ package mvc.spring.web.services.event;
 import java.util.List;
 
 import javassist.NotFoundException;
-import mvc.spring.web.dto.ClubDto;
 import mvc.spring.web.dto.EventDto;
 
 public interface EventService {

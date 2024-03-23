@@ -1,6 +1,9 @@
 package mvc.spring.web.mappers;
 
+import lombok.Builder;
 import mvc.spring.web.dto.EventDto;
+import mvc.spring.web.dto.PartialClub;
+import mvc.spring.web.models.Club;
 import mvc.spring.web.models.Event;
 
 public class EventMapper {
@@ -28,6 +31,14 @@ public class EventMapper {
                 .photoUrl(event.getPhotoUrl())
                 .createdAt(event.getCreatedAt())
                 .updatedAt(event.getUpdatedAt())
+                .club(mapToPartialClub(event.getClub()))
+                .build();
+    }
+
+    public static PartialClub mapToPartialClub(Club club) {
+        return PartialClub.builder()
+                .id(club.getId())
+                .title(club.getTitle())
                 .build();
     }
 

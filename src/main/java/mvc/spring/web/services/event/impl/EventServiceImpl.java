@@ -2,6 +2,7 @@ package mvc.spring.web.services.event.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,9 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventDto> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        List<Event> events = eventRepository.findAll();
+        return events.stream().map((event -> EventMapper.mapToEventDto(event)))
+                .collect(Collectors.toList());
     }
 
     @Override
