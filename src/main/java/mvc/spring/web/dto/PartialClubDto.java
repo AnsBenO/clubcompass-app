@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class PartialClub {
+public class PartialClubDto {
     private Long id;
     private String title;
 

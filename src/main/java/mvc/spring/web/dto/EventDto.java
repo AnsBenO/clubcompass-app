@@ -31,5 +31,5 @@ public class EventDto {
 
     private LocalDate updatedAt;
 
-    private PartialClub club;
+    private PartialClubDto club;
 }
