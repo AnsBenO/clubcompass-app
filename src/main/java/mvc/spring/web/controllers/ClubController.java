@@ -32,21 +32,21 @@ public class ClubController {
     public String listClubs(@NotNull Model model) {
         List<ClubDto> clubs = clubService.findAll();
         model.addAttribute("clubs", clubs);
-        return "clubs-list";
+        return "clubs/clubs-list";
     }
 
     @GetMapping("/search")
     public String searchClub(@RequestParam(value = "query") String query, Model model) {
         List<ClubDto> foundClubs = clubService.search(query);
         model.addAttribute("clubs", foundClubs);
-        return "clubs-list";
+        return "clubs/clubs-list";
     }
 
     @GetMapping("/new")
     public String createClubForm(@NotNull Model model) {
         ClubDto club = new ClubDto();
         model.addAttribute("club", club);
-        return "clubs-create";
+        return "clubs/clubs-create";
     }
 
     @PostMapping("/new")
@@ -54,7 +54,7 @@ public class ClubController {
             BindingResult result) {
 
         if (result.hasErrors()) {
-            return "clubs-create";
+            return "clubs/clubs-create";
         }
         clubService.save(club);
         return "redirect:/clubs/all";
@@ -66,7 +66,7 @@ public class ClubController {
             @NotNull Model model) throws NotFoundException {
         ClubDto club = clubService.findById(clubId);
         model.addAttribute("club", club);
-        return "clubs-edit";
+        return "clubs/clubs-edit";
     }
 
     @PostMapping("/{clubId}/edit")
@@ -75,7 +75,7 @@ public class ClubController {
             BindingResult result) {
 
         if (result.hasErrors()) {
-            return "clubs-edit";
+            return "clubs/clubs-edit";
         }
         club.setId(clubId);
         clubService.update(club);
@@ -88,7 +88,7 @@ public class ClubController {
         ClubDto club = clubService.findById(clubId);
         model.addAttribute("club", club);
 
-        return "clubs-detail";
+        return "clubs/clubs-detail";
 
     }
 

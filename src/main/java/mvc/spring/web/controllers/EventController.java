@@ -31,7 +31,7 @@ public class EventController {
         Event event = new Event();
         model.addAttribute("clubId", clubId);
         model.addAttribute("event", event);
-        return "event-create";
+        return "clubs/events/event-create";
     }
 
     @PostMapping("/{clubId}/new")
@@ -44,7 +44,7 @@ public class EventController {
     public String eventList(Model model) {
         List<EventDto> events = eventService.findAll();
         model.addAttribute("events", events);
-        return "events-list";
+        return "clubs/events/events-list";
     }
 
 }
