@@ -10,7 +10,7 @@ import mvc.spring.web.dto.ClubDto;
 import mvc.spring.web.models.Club;
 import mvc.spring.web.repositories.ClubRepository;
 import mvc.spring.web.services.club.ClubService;
-import mvc.spring.web.mappers.ClubMapper;;
+import mvc.spring.web.mappers.ClubMapper;
 
 @Service
 public class ClubServiceImpl implements ClubService {
