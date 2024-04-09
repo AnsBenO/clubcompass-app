@@ -61,4 +61,12 @@ public class EventServiceImpl implements EventService {
         throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
     }
 
+    @Override
+    public List<EventDto> search(String query) {
+        List<Event> foundEvents = eventRepository.searchEvent(query);
+        return foundEvents.stream()
+                .map((event) -> EventMapper.mapToEventDto(event))
+                .collect(Collectors.toList());
+    }
+
 }
