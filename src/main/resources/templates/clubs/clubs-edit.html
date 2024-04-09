@@ -11,7 +11,7 @@
 
 <body>
     <div layout:fragment="body" class="new-club">
-        <h2>Update Club's info</h2>
+
         <form role="form" th:object="${club}" th:action="@{/clubs/{clubId}/edit(clubId=${club.id})}" method="post">
             <div class="form-group">
                 <label for="title">Title:</label>

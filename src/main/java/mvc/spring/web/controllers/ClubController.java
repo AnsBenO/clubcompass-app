@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.validation.Valid;
 import javassist.NotFoundException;
@@ -20,6 +22,7 @@ import mvc.spring.web.services.club.impl.ClubServiceImpl;
 
 @Controller
 @RequestMapping("/clubs")
+@SessionAttributes("club")
 public class ClubController {
 
     private ClubServiceImpl clubService;
@@ -71,7 +74,7 @@ public class ClubController {
 
     @PostMapping("/{clubId}/edit")
     public String updateClub(@PathVariable("clubId") long clubId,
-            @Valid @ModelAttribute("club") ClubDto club,
+            @Valid @ModelAttribute("club") ClubDto club, SessionStatus status,
             BindingResult result) {
 
         if (result.hasErrors()) {
@@ -79,6 +82,7 @@ public class ClubController {
         }
         club.setId(clubId);
         clubService.update(club);
+        status.setComplete();
         return "redirect:/clubs/all";
     }
 

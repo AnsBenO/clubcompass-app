@@ -38,7 +38,7 @@ span.error {
     font-size: 12px;
 }
 
-button {
+button[type="submit"] {
     background-color: #2F6E71;
     color: #fff;
     padding: 10px 15px;
@@ -48,6 +48,6 @@ button {
     font-size: 16px;
 }
 
-button:hover {
+button[type="submit"]:hover {
     background-color: #1a5154;
 }

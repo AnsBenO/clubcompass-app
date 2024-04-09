@@ -1,11 +1,12 @@
-body {
+/* body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
     min-height: 100vh;
-}
+} */
 
+/* 
 .topnav {
     overflow: hidden;
     background-color: #cecece;
@@ -68,10 +69,10 @@ body {
         display: block;
         text-align: left;
     }
-}
+} */
 
 
-
+/* 
 footer {
     background-color: #2F6E71;
     color: #fff;
@@ -83,4 +84,4 @@ footer {
 .footer-content {
     max-width: 1200px;
     margin: 0 auto;
-}
+} */

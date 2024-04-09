@@ -7,39 +7,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>clubs</title>
-    <link rel="stylesheet" th:href="@{/css/clubs-list.css}">
 </head>
 
 <body>
-    <div layout:fragment="body" class="container">
+    <div layout:fragment="body" class="w-full">
 
-        <form th:action="@{/clubs/search}" class="search-group">
-            <h1 class="search-header">Find Clubs</h1>
-            <h2 class="search-subheader">Groups of passionate near you</h2>
-            <input th:value="${param.query}" type="text" name="query" id="query" class="search-input"
-                placeholder="search...">
-
+        <form th:action="@{/clubs/search}" class="search-group bg-gray-100 p-6 rounded-lg shadow-lg w-full">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Find Clubs</h1>
+            <h2 class="text-lg text-gray-600 mb-4">Groups of passionate people near you</h2>
+            <input th:value="${param.query}" type="text" name="query" id="query"
+                class="search-input w-2/6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Search for clubs...">
+            <button type="submit"
+                class="bg-blue-500 text-white py-2 px-4 mt-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out">Search</button>
         </form>
-        <div class="clubs">
 
-            <div th:each="club : ${clubs}" class="club-container">
-                <div>
-                    <img th:src="@{/{image}(image=${club.photoUrl})}" alt="" class="club-image" />
-                    <a th:text="${club.title}" th:href="@{/clubs/{clubId}(clubId=${club.id})}" class="club-title"></a>
-                    <p class="description" th:text="${club.description}"></p>
+        <div class="clubs grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-6">
+            <div th:each="club : ${clubs}"
+                class="club-container bg-white border border-gray-200 rounded-lg shadow-md transition-transform hover:scale-105">
+                <img th:src="@{ {image}(image=${club.photoUrl})}" alt=""
+                    class="w-full h-48 object-cover rounded-md mb-4" />
+                <div class="p-3">
+
+                    <a th:text="${club.title}" th:href="@{/clubs/{clubId}(clubId=${club.id})}"
+                        class="text-lg font-bold text-gray-800 hover:text-blue-500 transition duration-300 ease-in-out"></a>
+                    <p class="text-gray-600 mb-4" th:text="${club.description}"></p>
                 </div>
-                <div class="buttons">
-                    <a href="" class="btn edit" th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}">Edit</a>
-                    <a th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}" class="btn delete">Delete</a>
-                    <a th:href="@{/events/{clubId}/new(clubId=${club.id})}" class="btn delete">Create event</a>
-
+                <div class="buttons flex justify-center gap-1 p-1">
+                    <a class="btn edit bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
+                        th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}">Edit</a>
+                    <a th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}"
+                        class="btn delete bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300 ease-in-out">Delete</a>
+                    <a th:href="@{/events/{clubId}/new(clubId=${club.id})}"
+                        class="btn create-event bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition duration-300 ease-in-out">Create
+                        Event</a>
                 </div>
-
             </div>
-
-
         </div>
+
     </div>
+
 </body>
 
 </html>

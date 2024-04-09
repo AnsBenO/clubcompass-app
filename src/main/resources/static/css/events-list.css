@@ -1,13 +1,10 @@
-/* events-list.css */
-
-/* Resetting default margin and padding */
+/* 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
@@ -19,7 +16,6 @@ body {
     padding: 20px;
 }
 
-/* Search form styles */
 .search-group {
     margin-bottom: 20px;
 }
@@ -45,7 +41,6 @@ body {
     box-shadow: none;
 }
 
-/* Event container styles */
 .event-container {
     display: flex;
     align-items: center;
@@ -95,4 +90,4 @@ body {
     background-color: #f44336;
     color: #fff;
     margin-left: 10px;
-}
+} */
