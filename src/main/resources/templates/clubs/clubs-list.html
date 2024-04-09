@@ -24,7 +24,7 @@
 
         <div class="clubs grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-6">
             <div th:each="club : ${clubs}"
-                class="club-container bg-white border border-gray-200 rounded-lg shadow-md transition-transform hover:scale-105">
+                class="bg-white border border-gray-200 rounded-lg shadow-md transition-transform hover:scale-105">
                 <img th:src="@{ {image}(image=${club.photoUrl})}" alt=""
                     class="w-full h-48 object-cover rounded-md mb-4" />
                 <div class="p-3">

@@ -10,34 +10,44 @@
 </head>
 
 <body>
-    <div layout:fragment="body" class="container">
+    <div layout:fragment="body" class="mx-auto pb-8">
 
-        <form th:action="@{/events/search}" class="search-group">
-            <h1 class="search-header">Find Events</h1>
-            <h2 class="search-subheader">Explore events near you</h2>
-            <input th:value="${param.query}" type="text" name="query" id="query" class="search-input"
-                placeholder="search...">
+        <!-- Search Form Section -->
+        <form th:action="@{/events/search}" class="search-group bg-gray-100 p-6 rounded-lg shadow-lg mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Find Events</h1>
+            <h2 class="text-lg text-gray-600 mb-4">Explore events near you</h2>
+            <input th:value="${param.query}" type="text" name="query" id="query"
+                class="w-2/6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400 placeholder-opacity-50"
+                placeholder="Search for events...">
+            <button type="submit"
+                class="bg-blue-500 text-white py-2 px-4 mt-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out">Search</button>
         </form>
 
-        <div class="events">
-
-            <div th:each="event : ${events}" class="event-container">
-                <div>
-                    <img th:src="@{/{image}(image=${event.photoUrl})}" alt="" class="event-image" />
-                    <a th:text="${event.name}" th:href="@{/events/{eventId}(eventId=${event.id})}"
-                        class="event-title"></a>
-                    <p class="description" th:text="${event.content}"></p>
-                    <p>Club ID: <span th:text="${event.club.id}"></span></p>
-                    <p>Club Title: <span th:text="${event.club.title}"></span></p>
-                    <!-- Accessing club title -->
+        <!-- Events Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-6">
+            <div th:each="event : ${events}"
+                class="bg-white border border-gray-200 rounded-lg shadow-md transition-transform hover:scale-105">
+                <div class="flex justify-center mb-4">
+                    <img th:src="@{/{image}(image=${event.photoUrl})}" alt="Event Image"
+                        class="w-full h-auto rounded-md">
                 </div>
-                <div class="buttons">
-                    <a href="" class="btn edit" th:href="@{/events/{eventId}/edit(eventId=${event.id})}">Edit</a>
-                    <a th:href="@{/events/{eventId}/delete(eventId=${event.id})}" class="btn delete">Delete</a>
+                <div class="text-center">
+                    <a th:text="${event.name}" th:href="@{/events/{eventId}(eventId=${event.id})}"
+                        class="text-xl font-bold text-blue-500 hover:underline"></a>
+                    <p class="text-gray-700 mb-2" th:text="${event.content}"></p>
+                    <p class="text-gray-600">Club ID: <span th:text="${event.club.id}"></span></p>
+                    <p class="text-gray-600">Club Title: <span th:text="${event.club.title}"></span></p>
+                </div>
+
+                <div class="flex justify-center mt-4 gap-1">
+                    <a href=""
+                        class="btn edit bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105">Edit</a>
+                    <a th:href="@{/events/{eventId}/delete(eventId=${event.id})}"
+                        class="btn delete bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300 ease-in-out transform hover:scale-105">Delete</a>
                 </div>
             </div>
-
         </div>
+
     </div>
 </body>
 
