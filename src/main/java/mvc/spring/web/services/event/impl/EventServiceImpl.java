@@ -34,19 +34,26 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventDto save(Long clubId, EventDto eventDto) {
+    public EventDto save(long clubId, EventDto eventDto) throws NotFoundException {
         Optional<Club> foundClub = clubRepository.findById(clubId);
-        Club club = foundClub.get();
-        Event event = EventMapper.mapToEvent(eventDto);
-        event.setClub(club);
-        eventRepository.save(event);
-        return EventMapper.mapToEventDto(event);
+        if(foundClub.isPresent()){
+            Club club = foundClub.get();
+            Event event = EventMapper.mapToEvent(eventDto);
+            event.setClub(club);
+            eventRepository.save(event);
+            return EventMapper.mapToEventDto(event);
+        }
+        throw new NotFoundException("Club Not Found");
     }
 
     @Override
-    public EventDto findById(Long id) throws NotFoundException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    public EventDto findById(long id) throws NotFoundException {
+        Optional<Event> foundEvent = eventRepository.findById(id);
+        if(foundEvent.isPresent()){
+            Event event = eventRepository.findById(id).get();
+            return EventMapper.mapToEventDto(event);
+        }
+        throw new NotFoundException("Event Not Found");
     }
 
     @Override
@@ -56,7 +63,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
     }

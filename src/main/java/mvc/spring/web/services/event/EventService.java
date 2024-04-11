@@ -9,12 +9,12 @@ import mvc.spring.web.services.common.Searchable;
 public interface EventService extends Searchable<EventDto> {
     List<EventDto> findAll();
 
-    EventDto save(Long clubId, EventDto event);
+    EventDto save(long clubId, EventDto event) throws NotFoundException;
 
-    EventDto findById(Long id) throws NotFoundException;
+    EventDto findById(long id) throws NotFoundException;
 
     void update(EventDto event) throws NotFoundException;
 
-    void deleteById(Long id);
+    void deleteById(long id);
 
 }

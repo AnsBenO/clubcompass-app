@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.validation.Valid;
+import javassist.NotFoundException;
 import mvc.spring.web.dto.EventDto;
 import mvc.spring.web.models.Event;
 import mvc.spring.web.services.event.EventService;
@@ -22,7 +23,7 @@ import mvc.spring.web.services.event.EventService;
 @SessionAttributes("event")
 public class EventController {
 
-    private EventService eventService;
+    private final EventService eventService;
 
     public EventController(EventService eventService) {
         this.eventService = eventService;
@@ -38,7 +39,8 @@ public class EventController {
     }
 
     @PostMapping("/{clubId}/new")
-    public String saveEvent(@PathVariable("clubId") Long clubId, @Valid @ModelAttribute("event") EventDto event) {
+    public String saveEvent(@PathVariable("clubId") Long clubId, @Valid @ModelAttribute("event") EventDto event)
+            throws NotFoundException {
         eventService.save(clubId, event);
         return "redirect:/clubs/" + clubId;
     }
@@ -55,6 +57,13 @@ public class EventController {
         List<EventDto> events = eventService.findAll();
         model.addAttribute("events", events);
         return "clubs/events/events-list";
+    }
+
+    @GetMapping("/{eventId}")
+    public String getMethodName(@PathVariable long eventId, Model model) throws NotFoundException {
+        EventDto event = eventService.findById(eventId);
+        model.addAttribute("event", event);
+        return "clubs/events/event-detail";
     }
 
 }

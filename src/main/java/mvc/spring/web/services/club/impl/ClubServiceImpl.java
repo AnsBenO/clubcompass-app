@@ -39,9 +39,11 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public ClubDto findById(long id) throws NotFoundException {
         Optional<Club> foundClub = clubRepository.findById(id);
-        return foundClub.map((club) -> ClubMapper.mapToClubDto(club))
-
-                .orElseThrow(() -> new NotFoundException("Club not found with id: " + id));
+        if(foundClub.isPresent()){
+            Club club = clubRepository.findById(id).get();
+            return ClubMapper.mapToClubDto(club);
+        }
+        throw new NotFoundException("Club not found");
     }
 
     @Override

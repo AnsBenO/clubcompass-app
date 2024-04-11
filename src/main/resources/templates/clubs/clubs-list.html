@@ -11,7 +11,7 @@
 
 <body>
     <div layout:fragment="body" class="w-full">
-
+        <!-- Search Seaction -->
         <form th:action="@{/clubs/search}" class="search-group bg-gray-100 p-6 rounded-lg shadow-lg w-full">
             <h1 class="text-3xl font-bold text-gray-800 mb-2">Find Clubs</h1>
             <h2 class="text-lg text-gray-600 mb-4">Groups of passionate people near you</h2>
@@ -22,6 +22,7 @@
                 class="bg-blue-500 text-white py-2 px-4 mt-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out">Search</button>
         </form>
 
+        <!-- Clubs Section -->
         <div class="clubs grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-6">
             <div th:each="club : ${clubs}"
                 class="bg-white border border-gray-200 rounded-lg shadow-md transition-transform hover:scale-105">
@@ -33,15 +34,23 @@
                         class="text-lg font-bold text-gray-800 hover:text-blue-500 transition duration-300 ease-in-out"></a>
                     <p class="text-gray-600 mb-4" th:text="${club.description}"></p>
                 </div>
-                <div class="buttons flex justify-center gap-4 p-4">
-                    <a class="btn edit bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105"
-                        th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}">Edit</a>
+                <!--Buttons-->
+                <div class="flex justify-center gap-4 mb-1">
+                    <a class="btn px-3 edit bg-blue-500 text-white p-2 rounded-xl hover: transition duration-300 ease-in-out transform hover:scale-105"
+                        th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
                     <a th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}"
-                        class="btn delete bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300 ease-in-out transform hover:scale-105">Delete</a>
+                        class="btn px-3 delete bg-red-500 text-white p-2 rounded-xl hover: transition duration-300 ease-in-out transform hover:scale-105">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
                     <a th:href="@{/events/{clubId}/new(clubId=${club.id})}"
-                        class="btn create-event bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition duration-300 ease-in-out transform hover:scale-105">Create
-                        Event</a>
+                        class="btn px-3 create-event bg-green-500 text-white p-2 rounded-xl hover: transition duration-300 ease-in-out transform hover:scale-105">
+                        <i class="fas fa-plus"></i>
+                    </a>
                 </div>
+
+
 
             </div>
         </div>
