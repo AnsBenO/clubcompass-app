@@ -49,6 +49,7 @@ public class Club {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @Builder.Default
     @OneToMany(mappedBy = "club", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Event> events = new ArrayList<>();
 

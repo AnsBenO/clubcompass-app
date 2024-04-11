@@ -31,5 +31,6 @@ public class ClubDto {
 
     private LocalDateTime updatedAt;
 
+    @Builder.Default
     private List<EventDto> events = new ArrayList<>();
 }
