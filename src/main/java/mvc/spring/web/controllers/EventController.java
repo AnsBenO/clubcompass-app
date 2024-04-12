@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import jakarta.validation.Valid;
 import javassist.NotFoundException;
 import mvc.spring.web.dto.EventDto;
@@ -32,10 +35,10 @@ public class EventController {
     @GetMapping("/{clubId}/new")
     public String saveEventForm(@PathVariable("clubId") Long clubId, Model model) {
 
-        Event event = new Event();
+        EventDto event = new EventDto();
         model.addAttribute("clubId", clubId);
         model.addAttribute("event", event);
-        return "clubs/events/event-create";
+        return "clubs/events/events-create";
     }
 
     @PostMapping("/{clubId}/new")
@@ -63,7 +66,35 @@ public class EventController {
     public String getMethodName(@PathVariable long eventId, Model model) throws NotFoundException {
         EventDto event = eventService.findById(eventId);
         model.addAttribute("event", event);
-        return "clubs/events/event-detail";
+        return "clubs/events/events-detail";
+    }
+
+    @GetMapping("/{eventId}/delete")
+    public String deleteEvent(@PathVariable long eventId) {
+        eventService.deleteById(eventId);
+        return "redirect:/events/all";
+    }
+
+    @GetMapping("/{eventId}/edit")
+    public String editEventForm(@PathVariable("eventId") long eventId,
+            @NotNull Model model) throws NotFoundException {
+        EventDto event = eventService.findById(eventId);
+        model.addAttribute("event", event);
+        return "clubs/events/events-edit";
+    }
+
+    @PostMapping("/{eventId}/edit")
+    public String updateEvent(@PathVariable("eventId") long eventId,
+            @Valid @ModelAttribute("event") EventDto event, SessionStatus status,
+            BindingResult result) throws NotFoundException {
+
+        if (result.hasErrors()) {
+            return "clubs/events/events-edit";
+        }
+        event.setId(eventId);
+        eventService.update(event);
+        status.setComplete();
+        return "redirect:/events/all";
     }
 
 }
