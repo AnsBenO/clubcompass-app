@@ -6,4 +6,8 @@ import mvc.spring.web.models.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
+    UserEntity findByEmail(String email);
+
+    UserEntity findByUsername(String username);
+
 }
