@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import javassist.NotFoundException;
+import lombok.RequiredArgsConstructor;
 import mvc.spring.web.dto.EventDto;
 import mvc.spring.web.mappers.EventMapper;
 import mvc.spring.web.models.Club;
@@ -16,15 +17,11 @@ import mvc.spring.web.repositories.EventRepository;
 import mvc.spring.web.services.event.EventService;
 
 @Service
+@RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
 
-    private EventRepository eventRepository;
-    private ClubRepository clubRepository;
-
-    public EventServiceImpl(EventRepository eventRepository, ClubRepository clubRepository) {
-        this.eventRepository = eventRepository;
-        this.clubRepository = clubRepository;
-    }
+    private final EventRepository eventRepository;
+    private final ClubRepository clubRepository;
 
     @Override
     public List<EventDto> findAll() {

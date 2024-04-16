@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javassist.NotFoundException;
+import lombok.RequiredArgsConstructor;
 import mvc.spring.web.dto.ClubDto;
 import mvc.spring.web.models.Club;
 import mvc.spring.web.repositories.ClubRepository;
@@ -13,13 +14,10 @@ import mvc.spring.web.services.club.ClubService;
 import mvc.spring.web.mappers.ClubMapper;
 
 @Service
+@RequiredArgsConstructor
 public class ClubServiceImpl implements ClubService {
 
     private final ClubRepository clubRepository;
-
-    public ClubServiceImpl(ClubRepository clubRepository) {
-        this.clubRepository = clubRepository;
-    }
 
     @Override
     public List<ClubDto> findAll() {
@@ -39,7 +37,7 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public ClubDto findById(long id) throws NotFoundException {
         Optional<Club> foundClub = clubRepository.findById(id);
-        if(foundClub.isPresent()){
+        if (foundClub.isPresent()) {
             Club club = clubRepository.findById(id).get();
             return ClubMapper.mapToClubDto(club);
         }

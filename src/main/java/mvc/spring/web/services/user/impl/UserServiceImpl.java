@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
 import mvc.spring.web.dto.RegistrationDto;
 import mvc.spring.web.models.Role;
 import mvc.spring.web.models.UserEntity;
@@ -13,15 +14,11 @@ import mvc.spring.web.repositories.UserRepository;
 import mvc.spring.web.services.user.UserService;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-    }
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     @Override
     public void save(RegistrationDto registration) {

@@ -17,19 +17,17 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import jakarta.validation.Valid;
 import javassist.NotFoundException;
+import lombok.RequiredArgsConstructor;
 import mvc.spring.web.dto.ClubDto;
 import mvc.spring.web.services.club.impl.ClubServiceImpl;
 
 @Controller
 @RequestMapping("/clubs")
 @SessionAttributes("club")
+@RequiredArgsConstructor
 public class ClubController {
 
-    private ClubServiceImpl clubService;
-
-    public ClubController(ClubServiceImpl clubService) {
-        this.clubService = clubService;
-    }
+    private final ClubServiceImpl clubService;
 
     @GetMapping("/all")
     public String listClubs(@NotNull Model model) {

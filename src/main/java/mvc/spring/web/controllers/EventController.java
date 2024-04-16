@@ -17,20 +17,17 @@ import org.springframework.web.bind.support.SessionStatus;
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import jakarta.validation.Valid;
 import javassist.NotFoundException;
+import lombok.RequiredArgsConstructor;
 import mvc.spring.web.dto.EventDto;
-import mvc.spring.web.models.Event;
 import mvc.spring.web.services.event.EventService;
 
 @Controller
 @RequestMapping("/events")
 @SessionAttributes("event")
+@RequiredArgsConstructor
 public class EventController {
 
     private final EventService eventService;
-
-    public EventController(EventService eventService) {
-        this.eventService = eventService;
-    }
 
     @GetMapping("/{clubId}/new")
     public String saveEventForm(@PathVariable("clubId") Long clubId, Model model) {

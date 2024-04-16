@@ -14,30 +14,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class AuthController {
 
-    private UserService userService;
+    private final UserService userService;
 
-    public AuthController(UserService userService) {
-        this.userService = userService;
-    }
-    
     @GetMapping("/register")
     public String getRegisterForm(Model model) {
         if (isUserAuthenticated()) {
-            return "redirect:/clubs/all"; 
+            return "redirect:/clubs/all";
         }
         RegistrationDto user = new RegistrationDto();
         model.addAttribute("user", user);
         return "auth/register";
     }
-    
+
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") RegistrationDto user, BindingResult result) {
         if (isUserAuthenticated()) {
-            return "redirect:/clubs/all"; 
+            return "redirect:/clubs/all";
         }
         if (result.hasErrors()) {
             return "auth/register";
@@ -45,15 +43,15 @@ public class AuthController {
         userService.save(user);
         return "redirect:/clubs/all";
     }
-    
+
     @GetMapping("/login")
     public String getLoginPage() {
         if (isUserAuthenticated()) {
-            return "redirect:/clubs/all"; 
+            return "redirect:/clubs/all";
         }
         return "auth/login";
     }
-    
+
     @GetMapping("/logout")
     public String logout() {
         return "auth/login";
