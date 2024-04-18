@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import mvc.spring.web.dto.RegistrationDto;
+import mvc.spring.web.models.UserEntity;
 import mvc.spring.web.services.user.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,6 +37,12 @@ public class AuthController {
     public String registerUser(@Valid @ModelAttribute("user") RegistrationDto user, BindingResult result) {
         if (isUserAuthenticated()) {
             return "redirect:/clubs/all";
+        }
+
+        UserEntity existingUser = userService.findByEmail(user.getEmail());
+        
+        if(existingUser != null){
+            return "redirect:/register?fail";
         }
         if (result.hasErrors()) {
             return "auth/register";
