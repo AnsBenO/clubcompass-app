@@ -15,6 +15,6 @@ public interface EventService extends Searchable<EventDto> {
 
     void update(EventDto event) throws NotFoundException;
 
-    void deleteById(long id);
+    void deleteById(long id) throws NotFoundException;
 
 }

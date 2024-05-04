@@ -19,6 +19,14 @@ public class SecurityConfig {
 
         private final CustomUserDetailsService customUserDetailsService;
 
+        /**
+         * Returns a new instance of the BCryptPasswordEncoder class, which implements
+         * the PasswordEncoder interface.
+         * This method is annotated with @Bean, which means that it will be registered
+         * as a bean in the Spring context.
+         *
+         * @return a new instance of the BCryptPasswordEncoder class
+         */
         @Bean
         static PasswordEncoder passwordEncoder() {
                 return new BCryptPasswordEncoder();
@@ -28,43 +36,59 @@ public class SecurityConfig {
         @Bean
         SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-                http.csrf(csrf -> csrf.disable())
+                // Disable CSRF protection to make it easier to test
+                http.csrf(csrf -> csrf.disable());
 
-                                .authorizeHttpRequests(reqs -> reqs
-                                                .requestMatchers("/", "/register",
-                                                                "/tailwind/**",
-                                                                "/register/**", "/css/**",
-                                                                "/js/**")
-                                                .permitAll().anyRequest().authenticated()
+                // Define which requests are allowed without authentication
+                http.authorizeHttpRequests(reqs -> reqs
+                                .requestMatchers(
+                                                "/", // Home page
+                                                "/register", // Registration page
+                                                "/tailwind/**", // Static assets
+                                                "/register/**", // Registration static assets
+                                                "/css/**", // Stylesheets
+                                                "/js/**" // JavaScript
+                                ).permitAll()
 
-                                )
+                                // All other requests need to be authenticated
+                                .anyRequest().authenticated());
 
-                                .formLogin(form -> form
+                // Configure form login
+                http.formLogin(form -> form
+                                // Login page URL
+                                .loginPage("/login")
 
-                                                .loginPage("/login")
+                                // After successful login, user should be redirected to home page
+                                .defaultSuccessUrl("/")
 
-                                                .defaultSuccessUrl("/")
+                                // Login processing URL
+                                .loginProcessingUrl("/login")
 
-                                                .loginProcessingUrl("/login")
+                                // URL to redirect user to in case they fail to login
+                                .failureUrl("/login?error=true")
 
-                                                .failureUrl("/login?error=true")
+                                // Allow anyone to access these URLs
+                                .permitAll());
 
-                                                .permitAll()
+                // Configure logout
+                http.logout(logout -> logout
 
-                                ).logout(
+                                // URL for logout requests
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 
-                                                logout -> logout
-
-                                                                .logoutRequestMatcher(
-                                                                                new AntPathRequestMatcher("/logout"))
-                                                                .permitAll()
-
-                                );
+                                // Allow anyone to access these URLs
+                                .permitAll());
 
                 return http.build();
 
         }
 
+        /**
+         * Configures the authentication manager builder.
+         *
+         * @param builder the authentication manager builder
+         * @throws Exception if an error occurs during configuration
+         */
         public void configure(AuthenticationManagerBuilder builder) throws Exception {
                 builder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
         }

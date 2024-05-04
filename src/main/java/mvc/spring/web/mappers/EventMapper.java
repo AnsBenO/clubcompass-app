@@ -6,6 +6,10 @@ import mvc.spring.web.models.Club;
 import mvc.spring.web.models.Event;
 
 public class EventMapper {
+
+    private EventMapper() {
+    }
+
     public static Event mapToEvent(EventDto eventDto) {
         return Event.builder()
                 .name(eventDto.getName())
@@ -38,6 +42,7 @@ public class EventMapper {
         return PartialClubDto.builder()
                 .id(club.getId())
                 .title(club.getTitle())
+                .createdBy(club.getCreatedBy().getUsername())
                 .build();
     }
 

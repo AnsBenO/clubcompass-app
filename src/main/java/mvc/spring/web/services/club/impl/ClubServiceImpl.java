@@ -9,7 +9,10 @@ import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import mvc.spring.web.dto.ClubDto;
 import mvc.spring.web.models.Club;
+import mvc.spring.web.models.UserEntity;
 import mvc.spring.web.repositories.ClubRepository;
+import mvc.spring.web.repositories.UserRepository;
+import mvc.spring.web.security.SecurityUtil;
 import mvc.spring.web.services.club.ClubService;
 import mvc.spring.web.mappers.ClubMapper;
 
@@ -18,17 +21,21 @@ import mvc.spring.web.mappers.ClubMapper;
 public class ClubServiceImpl implements ClubService {
 
     private final ClubRepository clubRepository;
+    private final UserRepository userRepository;
 
     @Override
     public List<ClubDto> findAll() {
         List<Club> clubs = clubRepository.findAll();
         return clubs.stream()
-                .map((club) -> ClubMapper.mapToClubDto(club))
+                .map(ClubMapper::mapToClubDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public ClubDto save(ClubDto clubDto) {
+        String username = SecurityUtil.getSessionUser();
+        UserEntity user = userRepository.findByUsername(username);
+        clubDto.setCreatedBy(user);
         Club club = ClubMapper.mapToClubEntity(clubDto);
         Club addedClub = clubRepository.save(club);
         return ClubMapper.mapToClubDto(addedClub);
@@ -38,7 +45,7 @@ public class ClubServiceImpl implements ClubService {
     public ClubDto findById(long id) throws NotFoundException {
         Optional<Club> foundClub = clubRepository.findById(id);
         if (foundClub.isPresent()) {
-            Club club = clubRepository.findById(id).get();
+            Club club = foundClub.get();
             return ClubMapper.mapToClubDto(club);
         }
         throw new NotFoundException("Club not found");
@@ -46,21 +53,29 @@ public class ClubServiceImpl implements ClubService {
 
     @Override
     public void update(ClubDto clubDto) {
+        String username = SecurityUtil.getSessionUser();
+        UserEntity user = userRepository.findByUsername(username);
+        clubDto.setCreatedBy(user);
         Club club = ClubMapper.mapToClubEntity(clubDto);
+
         clubRepository.save(club);
+
     }
 
     @Override
     public void deleteById(Long id) {
-        clubRepository.findById(id)
-                .ifPresent(clubRepository::delete);
+        Optional<Club> clubOptional = clubRepository.findById(id);
+        if (clubOptional.isPresent()) {
+            clubRepository.deleteById(id);
+        }
+
     }
 
     @Override
     public List<ClubDto> search(String query) {
         List<Club> foundClubs = clubRepository.searchClub(query);
         return foundClubs.stream()
-                .map((club) -> ClubMapper.mapToClubDto(club))
+                .map(ClubMapper::mapToClubDto)
                 .collect(Collectors.toList());
     }
 

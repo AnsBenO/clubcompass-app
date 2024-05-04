@@ -1,62 +1,161 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout}">
+<html
+	lang="en"
+	xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}"
+>
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>clubs</title>
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>clubs</title>
-</head>
+	<body>
+		<div
+			layout:fragment="body"
+			class="w-full"
+		>
+			<!-- Search Seaction -->
+			<form
+				th:action="@{/clubs/search}"
+				class="search-group bg-gray-100 p-6 rounded-lg shadow-lg w-full"
+			>
+				<h1 class="text-3xl font-bold text-gray-800 mb-2">Find Clubs</h1>
+				<h2 class="text-lg text-gray-600 mb-4">
+					Groups of passionate people near you
+				</h2>
+				<input
+					th:value="${param.query}"
+					type="text"
+					name="query"
+					id="query"
+					class="search-input w-2/6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+					placeholder="Search for clubs..."
+				/>
+				<button
+					type="submit"
+					class="bg-blue-500 text-white py-2 px-4 mt-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
+				>
+					Search
+				</button>
+			</form>
 
-<body>
-    <div layout:fragment="body" class="w-full">
-        <!-- Search Seaction -->
-        <form th:action="@{/clubs/search}" class="search-group bg-gray-100 p-6 rounded-lg shadow-lg w-full">
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Find Clubs</h1>
-            <h2 class="text-lg text-gray-600 mb-4">Groups of passionate people near you</h2>
-            <input th:value="${param.query}" type="text" name="query" id="query"
-                class="search-input w-2/6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Search for clubs...">
-            <button type="submit"
-                class="bg-blue-500 text-white py-2 px-4 mt-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out">Search</button>
-        </form>
+			<!-- Clubs Section -->
 
-        <!-- Clubs Section -->
-        <div class="clubs grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-6">
-            <div th:each="club : ${clubs}"
-                class="bg-white border border-gray-200 rounded-lg shadow-md transition-transform hover:scale-105">
-                <img th:src="@{ {image}(image=${club.photoUrl})}" alt=""
-                    class="w-full h-48 object-cover rounded-md mb-4" />
-                <div class="p-3">
+			<div
+				class="clubs grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-6"
+			>
+				<div
+					th:each="club : ${clubs}"
+					class="bg-white border border-gray-200 rounded-lg shadow-md transition-transform hover:scale-105"
+				>
+					<img
+						th:src="@{ {image}(image=${club.photoUrl})}"
+						alt=""
+						class="w-full h-48 object-cover rounded-md mb-4"
+					/>
+					<div class="p-3">
+						<a
+							th:text="${club.title}"
+							th:href="@{/clubs/{clubId}(clubId=${club.id})}"
+							class="text-lg font-bold text-gray-800 hover:text-blue-500 transition duration-300 ease-in-out"
+						></a>
+						<p
+							class="text-gray-600 mb-4"
+							th:text="${club.description}"
+						></p>
+					</div>
+					<!--Buttons-->
+					<div
+						class="flex justify-center gap-4 mb-1"
+						th:if="${user.id} == ${club.createdBy.id}"
+					>
+						<a
+							class="btn px-3 edit bg-blue-500 text-white p-2 rounded-xl hover: transition duration-300 ease-in-out transform hover:scale-105"
+							th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}"
+						>
+							<i class="fas fa-pencil-alt"></i>
+						</a>
+						<form
+							id="deleteForm"
+							th:action="@{/clubs/{clubId}/delete(clubId=${club.id})}"
+							method="post"
+							style="display: inline"
+						>
+							<input
+								type="hidden"
+								name="_method"
+								value="delete"
+							/>
+							<button
+								type="submit"
+								class="btn px-3 delete bg-red-500 text-white p-2 rounded-xl hover: transition duration-300 ease-in-out transform hover:scale-105"
+							>
+								<i class="fas fa-trash-alt"></i>
+							</button>
+						</form>
+						<a
+							th:href="@{/events/{clubId}/new(clubId=${club.id})}"
+							class="btn px-3 create-event bg-green-500 text-white p-2 rounded-xl hover: transition duration-300 ease-in-out transform hover:scale-105"
+						>
+							<i class="fas fa-plus"></i>
+						</a>
+					</div>
+				</div>
+				<div th:if="${clubs.isEmpty()}">
+					<p>No clubs available</p>
+				</div>
+			</div>
 
-                    <a th:text="${club.title}" th:href="@{/clubs/{clubId}(clubId=${club.id})}"
-                        class="text-lg font-bold text-gray-800 hover:text-blue-500 transition duration-300 ease-in-out"></a>
-                    <p class="text-gray-600 mb-4" th:text="${club.description}"></p>
-                </div>
-                <!--Buttons-->
-                <div class="flex justify-center gap-4 mb-1">
-                    <a class="btn px-3 edit bg-blue-500 text-white p-2 rounded-xl hover: transition duration-300 ease-in-out transform hover:scale-105"
-                        th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}">
-                        <i class="fas fa-pencil-alt"></i>
-                    </a>
-                    <a th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}"
-                        class="btn px-3 delete bg-red-500 text-white p-2 rounded-xl hover: transition duration-300 ease-in-out transform hover:scale-105">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
-                    <a th:href="@{/events/{clubId}/new(clubId=${club.id})}"
-                        class="btn px-3 create-event bg-green-500 text-white p-2 rounded-xl hover: transition duration-300 ease-in-out transform hover:scale-105">
-                        <i class="fas fa-plus"></i>
-                    </a>
-                </div>
+			<!-- ERROR MESSAGE BOX-->
+			<div
+				th:if="${error}"
+				class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2"
+				id="errorNotification"
+			>
+				<p th:text="${error}"></p>
+				<span
+					class="absolute top-0 bottom-0 right-0 px-4 py-3"
+					onclick="closeErrorNotification()"
+				>
+					<svg
+						class="fill-current h-6 w-6"
+						role="button"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 20 20"
+					>
+						<title>Close</title>
+						<path
+							d="M14.354 5.646a.5.5 0 0 0-.708 0L10 9.293 5.354 5.646a.5.5 0 1 0-.708.708L9.293 10l-4.647 4.646a.5.5 0 1 0 .708.708L10 10.707l4.646 4.647a.5.5 0 0 0 .708-.708L10.707 10l4.647-4.646a.5.5 0 0 0 0-.708z"
+						/>
+					</svg>
+				</span>
+			</div>
 
+			<script>
+				// Close the error notification after 10 seconds
+				setTimeout(() => {
+					const errorNotification =
+						document.getElementById("errorNotification");
+					if (errorNotification) {
+						errorNotification.style.display = "none";
+					}
+				}, 3000);
 
-
-            </div>
-        </div>
-
-    </div>
-
-</body>
-
+				// Function to close the error notification manually
+				function closeErrorNotification() {
+					const errorNotification =
+						document.getElementById("errorNotification");
+					if (errorNotification) {
+						errorNotification.style.display = "none";
+					}
+				}
+			</script>
+		</div>
+	</body>
 </html>

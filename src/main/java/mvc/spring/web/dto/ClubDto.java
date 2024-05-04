@@ -7,13 +7,17 @@ import java.util.List;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import mvc.spring.web.models.UserEntity;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
 public class ClubDto {
 
     private Long id;
@@ -26,6 +30,8 @@ public class ClubDto {
 
     @NotEmpty(message = "Club description is required")
     private String description;
+
+    private UserEntity createdBy;
 
     private LocalDateTime createdAt;
 

@@ -47,7 +47,7 @@ public class EventServiceImpl implements EventService {
     public EventDto findById(long id) throws NotFoundException {
         Optional<Event> foundEvent = eventRepository.findById(id);
         if (foundEvent.isPresent()) {
-            Event event = eventRepository.findById(id).get();
+            Event event = foundEvent.get();
             return EventMapper.mapToEventDto(event);
         }
         throw new NotFoundException("Event Not Found");
@@ -68,8 +68,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void deleteById(long id) {
-        eventRepository.findById(id).ifPresent(e -> eventRepository.delete(e));
+    public void deleteById(long id) throws NotFoundException {
+        Optional<Event> foundEvent = eventRepository.findById(id);
+        if (foundEvent.isPresent()) {
+            eventRepository.delete(foundEvent.get());
+        } else {
+            throw new NotFoundException("Event Not Found");
+        }
     }
 
     @Override

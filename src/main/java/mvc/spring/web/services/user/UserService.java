@@ -5,5 +5,8 @@ import mvc.spring.web.models.UserEntity;
 
 public interface UserService {
     void save(RegistrationDto registration);
+
     UserEntity findByEmail(String email);
+
+    UserEntity findByUsername(String username);
 }
