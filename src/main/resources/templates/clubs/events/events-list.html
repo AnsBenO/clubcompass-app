@@ -23,7 +23,7 @@
 			layout:fragment="body"
 			class="mx-auto pb-8"
 		>
-			<!-- Search Form Section -->
+			<!-- ? Search Form Section -->
 			<form
 				th:action="@{/events/search}"
 				class="search-group bg-gray-100 p-6 rounded-lg shadow-lg mb-8"
@@ -46,7 +46,7 @@
 				</button>
 			</form>
 
-			<!-- Events Section -->
+			<!-- ? Events Section -->
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-6">
 				<div
 					th:each="event : ${events}"
@@ -107,7 +107,7 @@
 				</div>
 			</div>
 
-			<!-- ERROR MESSAGE BOX-->
+			<!-- ? ERROR MESSAGE BOX-->
 			<div
 				th:if="${error}"
 				class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2"

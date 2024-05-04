@@ -47,17 +47,17 @@
 				<p>
 					<strong>Club:</strong> <span th:text="${event.club.title}"></span>
 				</p>
-				<!-- Assuming club name is accessible -->
+				<!-- ? Assuming club name is accessible -->
 
 				<div th:if="${user.username} == ${event.club.createdBy}">
-					<!-- Edit link -->
+					<!-- ? Edit link -->
 					<a
 						th:href="@{/events/{eventId}/edit(eventId=${event.id})}"
 						class="text-blue-500 mr-2"
 						>Edit</a
 					>
 
-					<!-- Delete link -->
+					<!-- ? Delete link -->
 					<form
 						id="deleteForm"
 						th:action="@{/events/{eventId}/delete(eventId=${event.id})}"
