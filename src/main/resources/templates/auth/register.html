@@ -4,8 +4,6 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
-	<!-- ? layout:decorate="~{layout}" -->
-
 	<head>
 		<title>Register</title>
 		<link
@@ -33,7 +31,6 @@
 			</h2>
 			<form
 				class="px-4 pb-6"
-				role="form"
 				th:object="${user}"
 				th:action="@{/register}"
 				method="post"
