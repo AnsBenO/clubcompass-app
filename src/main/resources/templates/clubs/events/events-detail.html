@@ -12,72 +12,87 @@
 	<body>
 		<div
 			layout:fragment="body"
-			class="max-w-md mx-auto bg-white shadow-lg rounded-lg mt-8 mb-9"
+			class=""
 		>
-			<h2
-				class="text-center text-gray-700 mb-6 text-2xl font-bold tracking-wide capitalize border-b-2 border-gray-300 py-2"
+			<!-- ? EVENT DETAILS -->
+
+			<div
+				class="flex flex-col w-full bg-white rounded shadow-lg max-w-xl mx-auto m-14"
 			>
-				Event Detail
-			</h2>
-
-			<div class="px-4 pb-6">
-				<p><strong>Name:</strong> <span th:text="${event.name}"></span></p>
-				<p>
-					<strong>Content:</strong> <span th:text="${event.content}"></span>
-				</p>
-				<p>
-					<strong>Start Time:</strong>
-					<span th:text="${event.startTime}"></span>
-				</p>
-				<p>
-					<strong>End Time:</strong> <span th:text="${event.endTime}"></span>
-				</p>
-				<p><strong>Type:</strong> <span th:text="${event.type}"></span></p>
-				<p>
-					<strong>Photo URL:</strong> <span th:text="${event.photoUrl}"></span>
-				</p>
-				<p>
-					<strong>Created At:</strong>
-					<span th:text="${event.createdAt}"></span>
-				</p>
-				<p>
-					<strong>Updated At:</strong>
-					<span th:text="${event.updatedAt}"></span>
-				</p>
-				<p>
-					<strong>Club:</strong> <span th:text="${event.club.title}"></span>
-				</p>
-				<!-- ? Assuming club name is accessible -->
-
-				<div th:if="${user.username} == ${event.club.createdBy}">
-					<!-- ? Edit link -->
-					<a
-						th:href="@{/events/{eventId}/edit(eventId=${event.id})}"
-						class="text-blue-500 mr-2"
-						>Edit</a
+				<div class="flex flex-col w-full md:flex-row">
+					<div
+						class="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-400 rounded md:flex-col md:items-center md:justify-center md:w-1/4"
 					>
-
-					<!-- ? Delete link -->
-					<form
-						id="deleteForm"
-						th:action="@{/events/{eventId}/delete(eventId=${event.id})}"
-						method="post"
-						style="display: inline"
-					>
-						<input
-							type="hidden"
-							name="_method"
-							value="delete"
-						/>
-						<button
-							type="submit"
-							class="btn delete bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300 ease-in-out transform hover:scale-105"
+						<div
+							class="md:text-3xl"
+							th:text="${#temporals.format(event.startTime, 'MMM')}"
+						></div>
+						<div
+							class="md:text-6xl"
+							th:text="${#temporals.format(event.startTime, 'dd')}"
+						></div>
+						<div
+							class="md:text-xl"
+							th:text="${#temporals.format(event.startTime, 'h a')}"
+						></div>
+					</div>
+					<div class="p-4 font-normal text-gray-800 md:w-3/4">
+						<h1
+							class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800"
+							th:text="${event.name}"
 						>
-							Delete
-						</button>
-					</form>
+							Event Name
+						</h1>
+						<p
+							class="leading-normal"
+							th:text="${event.content}"
+						>
+							Event Description
+						</p>
+					</div>
+					<div
+						th:if="${user.username} == ${event.club.createdBy}"
+						class="flex gap-2 p-1"
+					>
+						<div class="flex gap-2">
+							<!-- ? Edit link -->
+							<a
+								th:href="@{/events/{eventId}/edit(eventId=${event.id})}"
+								class="text-blue-500 flex items-center justify-center gap-1 hover:bg-gray-200 h-9 p-1 rounded"
+							>
+								<i class="fas fa-pencil-alt"></i> Edit
+							</a>
+
+							<!-- ? Delete link -->
+							<form
+								id="deleteForm"
+								th:action="@{/events/{eventId}/delete(eventId=${event.id})}"
+								method="post"
+								style="display: inline"
+							>
+								<form
+									id="deleteForm"
+									th:action="@{/events/{eventId}/delete(eventId=${event.id})}"
+									method="post"
+									style="display: inline"
+								>
+									<button
+										type="submit"
+										class="text-red-500 flex items-center justify-center gap-1 hover:bg-gray-200 h-9 p-1 rounded"
+									>
+										<i class="fas fa-trash-alt"></i> Delete
+									</button>
+								</form>
+							</form>
+						</div>
+					</div>
 				</div>
+				<div
+					class="w-full h-64 bg-top bg-cover rounded-t"
+					th:style="'background-image:url(' + @{${event.photoUrl}} + '); background-repeat: no-repeat, repeat; background-size: contain;'"
+				></div>
 			</div>
+			<!-- ? END OF EVENT DETAILS-->
 		</div>
 	</body>
 </html>

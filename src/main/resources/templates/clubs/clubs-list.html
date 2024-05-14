@@ -20,7 +20,7 @@
 			layout:fragment="body"
 			class="w-full"
 		>
-			<!-- ? Search Seaction -->
+			<!--? Search Section -->
 			<form
 				th:action="@{/clubs/search}"
 				class="search-group bg-gray-100 p-6 rounded-lg shadow-lg w-full"
@@ -45,75 +45,78 @@
 				</button>
 			</form>
 
-			<!-- ? Clubs Section -->
-
+			<!--? Clubs Section -->
 			<div
-				class="clubs grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-6"
+				class="clubs grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-10 p-4"
 			>
 				<div
 					th:each="club : ${clubs}"
-					class="bg-white border border-gray-200 rounded-lg shadow-md transition-transform hover:scale-105"
+					class="relative"
 				>
-					<img
-						th:src="@{ {image}(image=${club.photoUrl})}"
-						alt=""
-						class="w-full h-48 object-cover rounded-md mb-4"
-					/>
-					<div class="p-3">
-						<a
-							th:text="${club.title}"
-							th:href="@{/clubs/{clubId}(clubId=${club.id})}"
-							class="text-lg font-bold text-gray-800 hover:text-blue-500 transition duration-300 ease-in-out"
-						></a>
-						<p
-							class="text-gray-600 mb-4"
-							th:text="${club.description}"
-						></p>
-					</div>
-					<!-- ?Buttons-->
 					<div
-						class="flex justify-center gap-4 mb-1"
-						th:if="${user.id} == ${club.createdBy.id}"
+						class="bg-white border border-gray-200 rounded-lg shadow-md transition-transform hover:scale-105"
 					>
-						<a
-							class="btn px-3 edit bg-blue-500 text-white p-2 rounded-xl hover: transition duration-300 ease-in-out transform hover:scale-105"
-							th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}"
-						>
-							<i class="fas fa-pencil-alt"></i>
-						</a>
-						<form
-							id="deleteForm"
-							th:action="@{/clubs/{clubId}/delete(clubId=${club.id})}"
-							method="post"
-							style="display: inline"
-						>
-							<input
-								type="hidden"
-								name="_method"
-								value="delete"
-							/>
-							<button
-								type="submit"
-								class="btn px-3 delete bg-red-500 text-white p-2 rounded-xl hover: transition duration-300 ease-in-out transform hover:scale-105"
+						<img
+							th:src="@{${club.photoUrl}}"
+							alt=""
+							class="w-full h-36 object-cover rounded-t-md"
+						/>
+						<div class="p-4">
+							<a
+								th:text="${club.title}"
+								th:href="@{/clubs/{clubId}(clubId=${club.id})}"
+								class="text-lg font-bold text-gray-800 hover:text-blue-500 transition duration-300 ease-in-out block"
+							></a>
+							<p
+								class="text-gray-600 my-2"
+								th:text="${club.description}"
+							></p>
+							<div
+								class="flex justify-center gap-4"
+								th:if="${user.id} == ${club.createdBy.id}"
 							>
-								<i class="fas fa-trash-alt"></i>
-							</button>
-						</form>
-						<a
-							th:href="@{/events/{clubId}/new(clubId=${club.id})}"
-							class="btn px-3 create-event bg-green-500 text-white p-2 rounded-xl hover: transition duration-300 ease-in-out transform hover:scale-105"
-						>
-							<i class="fas fa-plus"></i>
-						</a>
+								<a
+									class="btn edit bg-blue-500 text-white p-2 rounded-xl hover:transition duration-300 ease-in-out transform hover:scale-105"
+									th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}"
+								>
+									<i class="fas fa-pencil-alt"></i> Edit
+								</a>
+								<form
+									id="deleteForm"
+									th:action="@{/clubs/{clubId}/delete(clubId=${club.id})}"
+									method="post"
+									style="display: inline"
+								>
+									<input
+										type="hidden"
+										name="_method"
+										value="delete"
+									/>
+									<button
+										type="submit"
+										class="btn delete bg-red-500 text-white p-2 rounded-xl hover:transition duration-300 ease-in-out transform hover:scale-105"
+									>
+										<i class="fas fa-trash-alt"></i> Delete
+									</button>
+								</form>
+								<a
+									th:href="@{/events/{clubId}/new(clubId=${club.id})}"
+									class="btn create-event bg-green-500 text-white p-2 rounded-xl hover:transition duration-300 ease-in-out transform hover:scale-105"
+								>
+									<i class="fas fa-plus"></i> Create Event
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div th:if="${clubs.isEmpty()}">
-					<p>No clubs available</p>
+					<p class="text-gray-700">No clubs available</p>
 				</div>
 			</div>
 
-			<!-- ? ERROR MESSAGE BOX-->
-			<!-- ? ERROR MESSAGE BOX-->
+			<!--? End Club's section -->
+
+			<!--? ERROR MESSAGE BOX-->
 			<div
 				th:if="${error}"
 				class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2"

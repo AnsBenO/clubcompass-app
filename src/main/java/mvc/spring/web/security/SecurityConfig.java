@@ -36,19 +36,19 @@ public class SecurityConfig {
         @Bean
         SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-                // Disable CSRF protection to make it easier to test
                 http.csrf(csrf -> csrf.disable());
 
                 // Define which requests are allowed without authentication
-                http.authorizeHttpRequests(reqs -> reqs
+                http.authorizeHttpRequests(request -> request
                                 .requestMatchers(
-                                                "/", // Home page
-                                                "/register", // Registration page
-                                                "/tailwind/**", // Static assets
-                                                "/register/**", // Registration static assets
-                                                "/css/**", // Stylesheets
-                                                "/js/**" // JavaScript
-                                ).permitAll()
+                                                "/",
+                                                "/register",
+                                                "/tailwind/**",
+                                                "/register/**",
+                                                "/css/**",
+                                                "/js/**",
+                                                "/assets/**")
+                                .permitAll()
 
                                 // All other requests need to be authenticated
                                 .anyRequest().authenticated());
