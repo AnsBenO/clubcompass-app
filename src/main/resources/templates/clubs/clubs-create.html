@@ -17,10 +17,11 @@
 			<h2
 				class="text-center text-gray-700 mb-6 text-2xl font-bold tracking-wide capitalize border-b-2 border-gray-300 py-2"
 			>
-				Create a New Club
+				<i class="fa-solid fa-users mr-2"></i> Create a New Club
 			</h2>
+
 			<form
-				class="px-4 pb-6"
+				class="px-4 pb-6 bg-white shadow-lg rounded-lg p-6"
 				th:object="${club}"
 				th:action="@{/clubs/new}"
 				method="post"
@@ -28,19 +29,20 @@
 				<div class="mb-6">
 					<label
 						for="title"
-						class="text-gray-700"
-						>Title:</label
+						class="text-gray-700 block mb-2 font-medium"
 					>
+						<i class="fa-solid fa-heading mr-2"></i> Title:
+					</label>
 					<input
 						type="text"
 						id="title"
 						name="title"
 						th:field="*{title}"
-						class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 placeholder-gray-400 placeholder-opacity-50"
+						class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 placeholder-gray-400 placeholder-opacity-50 transition duration-300 ease-in-out"
 						placeholder="Enter club title"
 					/>
 					<span
-						class="text-red-500 text-xs top-full mt-1"
+						class="text-red-500 text-xs mt-1"
 						th:if="${#fields.hasErrors('title')}"
 						th:errors="*{title}"
 					></span>
@@ -49,19 +51,20 @@
 				<div class="mb-6">
 					<label
 						for="photoUrl"
-						class="text-gray-700"
-						>Photo URL:</label
+						class="text-gray-700 block mb-2 font-medium"
 					>
+						<i class="fa-solid fa-image mr-2"></i> Photo URL:
+					</label>
 					<input
 						type="text"
 						id="photoUrl"
 						name="photoUrl"
 						th:field="*{photoUrl}"
-						class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 placeholder-gray-400 placeholder-opacity-50"
+						class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 placeholder-gray-400 placeholder-opacity-50 transition duration-300 ease-in-out"
 						placeholder="Enter photo URL"
 					/>
 					<span
-						class="text-red-500 text-xs top-full mt-1"
+						class="text-red-500 text-xs mt-1"
 						th:if="${#fields.hasErrors('photoUrl')}"
 						th:errors="*{photoUrl}"
 					></span>
@@ -70,29 +73,31 @@
 				<div class="mb-6">
 					<label
 						for="description"
-						class="text-gray-700"
-						>Description:</label
+						class="text-gray-700 block mb-2 font-medium"
 					>
+						<i class="fa-solid fa-align-left mr-2"></i> Description:
+					</label>
 					<textarea
 						id="description"
 						name="description"
 						th:field="*{description}"
-						class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 placeholder-gray-400 placeholder-opacity-50"
+						class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 placeholder-gray-400 placeholder-opacity-50 transition duration-300 ease-in-out"
 						placeholder="Enter club description"
 					></textarea>
 					<span
-						class="text-red-500 text-xs top-full mt-1"
+						class="text-red-500 text-xs mt-1"
 						th:if="${#fields.hasErrors('description')}"
 						th:errors="*{description}"
 					></span>
 				</div>
 
-				<!-- ? Hidden input for the id, assuming it's set by the server -->
+				<!-- Hidden input for the id, assuming it's set by the server -->
 				<input
 					type="hidden"
 					th:field="*{id}"
 				/>
 
+				<!-- Hidden input for createdBy, assuming it's set by the server -->
 				<input
 					type="hidden"
 					th:field="*{createdBy}"
@@ -100,9 +105,9 @@
 
 				<button
 					type="submit"
-					class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105"
+					class="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-md hover:from-blue-600 hover:to-indigo-600 focus:outline-none focus:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105"
 				>
-					Create Club
+					<i class="fa-solid fa-check mr-2"></i> Create Club
 				</button>
 			</form>
 		</div>

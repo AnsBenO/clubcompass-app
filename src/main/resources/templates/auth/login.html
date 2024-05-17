@@ -3,6 +3,7 @@
 	lang="en"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	class="h-full overflow-hidden"
 >
 	<head>
 		<title>Login</title>
@@ -18,15 +19,17 @@
 			referrerpolicy="no-referrer"
 		/>
 	</head>
-	<body>
+	<body
+		class="bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-300 text-white"
+	>
+		<h2
+			class="text-center text-indigo-100 text-2xl font-bold tracking-wide capitalize py-2 flex flex-col gap-5 my-7 font-rubik"
+		>
+			<i class="fa-solid fa-cubes text-5xl"></i> Sign in to your account
+		</h2>
 		<div class="max-w-md mx-auto bg-white shadow-lg rounded-lg mt-8 mb-9">
-			<h2
-				class="text-center text-gray-700 mb-6 text-2xl font-bold tracking-wide capitalize border-b-2 border-gray-300 py-2"
-			>
-				Login
-			</h2>
 			<form
-				class="px-4 pb-6"
+				class="p-5"
 				th:action="@{/login}"
 				method="post"
 			>

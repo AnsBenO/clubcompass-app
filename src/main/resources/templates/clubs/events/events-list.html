@@ -24,27 +24,36 @@
 			class="mx-auto pb-8"
 		>
 			<!-- ? Search Form Section -->
-			<form
-				th:action="@{/events/search}"
-				class="search-group bg-gray-100 p-6 rounded-lg shadow-lg mb-8"
+			<!--? Search Section -->
+			<div
+				class="search-section bg-gradient-to-r from-blue-500 to-purple-600 p-8 shadow-xl mb-8 text-white"
 			>
-				<h1 class="text-3xl font-bold text-gray-800 mb-2">Find Events</h1>
-				<h2 class="text-lg text-gray-600 mb-4">Explore events near you</h2>
-				<input
-					th:value="${param.query}"
-					type="text"
-					name="query"
-					id="query"
-					class="w-2/6 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-400 placeholder-opacity-50"
-					placeholder="Search for events..."
-				/>
-				<button
-					type="submit"
-					class="bg-blue-500 text-white py-2 px-4 mt-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
+				<form
+					th:action="@{/events/search}"
+					class="search-group"
 				>
-					Search
-				</button>
-			</form>
+					<h1 class="text-4xl font-bold mb-2">Find Events</h1>
+					<h2 class="text-xl font-medium mb-6">Explore events near you</h2>
+					<div
+						class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4"
+					>
+						<input
+							th:value="${param.query}"
+							type="text"
+							name="query"
+							id="query"
+							class="w-full md:w-2/3 lg:w-1/2 px-4 py-3 rounded-md border focus:outline-none focus:ring-2 focus:ring-gray-900 text-gray-900 placeholder-gray-500"
+							placeholder="Search for events..."
+						/>
+						<button
+							type="submit"
+							class="flex items-center justify-center bg-white text-blue-600 font-semibold py-3 px-6 rounded-md hover:bg-gray-200 transition duration-300 ease-in-out"
+						>
+							<i class="fas fa-search mr-2"></i> Search
+						</button>
+					</div>
+				</form>
+			</div>
 
 			<!-- ? Events Section -->
 			<div
@@ -55,61 +64,69 @@
 					class="relative"
 				>
 					<div
-						class="bg-white border border-gray-200 rounded-lg shadow-md transition-transform hover:scale-105"
+						class="bg-white border border-gray-200 rounded-lg shadow-lg transition-transform hover:scale-105 hover:shadow-xl overflow-hidden"
 					>
 						<img
 							th:src="@{${event.photoUrl}}"
 							alt=""
-							class="w-full h-36 object-cover rounded-t-md"
+							class="w-full h-36 object-cover"
 						/>
-						<div class="p-4">
+						<div class="p-6">
 							<a
 								th:text="${event.name}"
 								th:href="@{/events/{eventId}(eventId=${event.id})}"
-								class="text-lg font-bold text-gray-800 hover:text-blue-500 transition duration-300 ease-in-out block"
+								class="text-2xl font-bold text-gray-800 hover:text-blue-500 transition duration-300 ease-in-out block mb-2"
 							></a>
 							<p
-								class="text-gray-700 my-2"
+								class="text-gray-700 mb-4"
 								th:text="${event.content}"
 							></p>
-							<div class="flex justify-center gap-4">
-								<p class="text-gray-600">
-									Club Title: <span th:text="${event.club.title}"></span>
+							<div class="flex justify-center items-center mb-4">
+								<p class="text-gray-600 text-sm">
+									Club Title:
+									<span
+										class="font-semibold"
+										th:text="${event.club.title}"
+									></span>
 								</p>
 							</div>
-							<div th:if="${user.username == event.club.createdBy}">
-								<div class="flex justify-center mt-4 gap-1">
-									<a
-										th:href="@{/events/{eventId}/edit(eventId=${event.id})}"
-										class="btn edit bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105"
+							<div
+								th:if="${user.username == event.club.createdBy}"
+								class="flex justify-center gap-2 mt-4"
+							>
+								<a
+									th:href="@{/events/{eventId}/edit(eventId=${event.id})}"
+									class="btn edit bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-2 px-4 rounded-md hover:from-blue-600 hover:to-indigo-600 transition duration-300 ease-in-out transform hover:scale-105"
+								>
+									<i class="fas fa-pencil-alt"></i> Edit
+								</a>
+								<form
+									id="deleteForm"
+									th:action="@{/events/{eventId}/delete(eventId=${event.id})}"
+									method="post"
+									style="display: inline"
+								>
+									<input
+										type="hidden"
+										name="_method"
+										value="delete"
+									/>
+									<button
+										type="submit"
+										class="btn delete bg-gradient-to-r from-red-500 to-pink-500 text-white py-2 px-4 rounded-md hover:from-red-600 hover:to-pink-600 transition duration-300 ease-in-out transform hover:scale-105"
 									>
-										<i class="fas fa-pencil-alt"></i> Edit</a
-									>
-									<form
-										id="deleteForm"
-										th:action="@{/events/{eventId}/delete(eventId=${event.id})}"
-										method="post"
-										style="display: inline"
-									>
-										<input
-											type="hidden"
-											name="_method"
-											value="delete"
-										/>
-										<button
-											type="submit"
-											class="btn delete bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition duration-300 ease-in-out transform hover:scale-105"
-										>
-											<i class="fas fa-trash-alt"></i> Delete
-										</button>
-									</form>
-								</div>
+										<i class="fas fa-trash-alt"></i> Delete
+									</button>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div th:if="${events.isEmpty()}">
-					<p class="text-gray-700">No events available</p>
+				<div
+					th:if="${events.isEmpty()}"
+					class="col-span-full text-center"
+				>
+					<p class="text-gray-700 text-xl">No events available</p>
 				</div>
 			</div>
 			<!-- ? End Events Section -->

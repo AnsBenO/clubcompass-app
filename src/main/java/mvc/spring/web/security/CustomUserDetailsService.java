@@ -29,13 +29,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         // Try to find a user by the given username
         UserEntity user = userRepository.findFirstByUsername(username);
         if (user != null) { // If the user was found
-            User authUser = new User(
+            return new User(
                     user.getUsername(),
                     user.getPassword(),
                     user.getRoles().stream()
-                            .map((role) -> new SimpleGrantedAuthority(role.getName().toString()))
-                            .collect((Collectors.toList()))); // Convert each role to a Spring Security role
-            return authUser; // Return the authenticated user
+                            .map(role -> new SimpleGrantedAuthority(role.getName().toString()))
+                            .collect((Collectors.toList()))); // Return the authenticated user
         } else { // If the user was not found
             throw new UsernameNotFoundException("Invalid Username or Password"); // Throw an exception to indicate that
                                                                                  // the credentials were invalid
