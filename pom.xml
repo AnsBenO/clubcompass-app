@@ -9,7 +9,7 @@
 		<relativePath />
 		<!-- ? lookup parent from repository -->
 	</parent>
-	<groupId>mvc.spring</groupId>
+	<groupId>org.clubcompass.web</groupId>
 	<artifactId>web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>web</name>
