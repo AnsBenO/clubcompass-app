@@ -21,12 +21,12 @@
 			</h2>
 
 			<form
-				class="px-4 pb-6 bg-white shadow-lg rounded-lg p-6"
+				class="px-4 pb-6 bg-white shadow-lg rounded-lg p-6 grid grid-cols-2 gap-4"
 				th:object="${event}"
 				th:action="@{/events/{clubId}/new(clubId=${clubId})}"
 				method="post"
 			>
-				<div class="mb-6">
+				<div class="col-span-2 mb-6">
 					<label
 						for="name"
 						class="text-gray-700 block mb-2 font-medium"
@@ -48,7 +48,7 @@
 					></span>
 				</div>
 
-				<div class="mb-6">
+				<div class="col-span-2 mb-6">
 					<label
 						for="content"
 						class="text-gray-700 block mb-2 font-medium"
@@ -161,12 +161,14 @@
 					th:field="*{id}"
 				/>
 
-				<button
-					type="submit"
-					class="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-md hover:from-blue-600 hover:to-indigo-600 focus:outline-none focus:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105"
-				>
-					<i class="fa-solid fa-check mr-2"></i> Create Event
-				</button>
+				<div class="col-span-2">
+					<button
+						type="submit"
+						class="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-md hover:from-blue-600 hover:to-indigo-600 focus:outline-none focus:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105"
+					>
+						<i class="fa-solid fa-check mr-2"></i> Create Event
+					</button>
+				</div>
 			</form>
 		</div>
 	</body>
