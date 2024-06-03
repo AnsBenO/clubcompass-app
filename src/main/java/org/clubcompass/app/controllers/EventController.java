@@ -9,6 +9,7 @@ import org.clubcompass.app.security.SecurityUtil;
 import org.clubcompass.app.services.club.ClubService;
 import org.clubcompass.app.services.event.EventService;
 import org.clubcompass.app.services.user.UserService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import jakarta.validation.Valid;
 import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +37,7 @@ public class EventController {
     private final UserService userService;
     private final ClubService clubService;
 
-    @GetMapping("/{clubId}/new")
+    @GetMapping("{clubId}/new")
     public String saveEventForm(@PathVariable("clubId") Long clubId, Model model,
             RedirectAttributes redirectAttributes) {
         ClubDto club;
@@ -45,11 +45,11 @@ public class EventController {
             club = clubService.findById(clubId);
         } catch (NotFoundException e) {
             redirectAttributes.addFlashAttribute("error", "Club not found.");
-            return "redirect:/event/all";
+            return "redirect:/events/all";
         }
         if (!club.getCreatedBy().getUsername().equals(SecurityUtil.getSessionUser())) {
             redirectAttributes.addFlashAttribute("error", "You don't have permission to add events to this club.");
-            return "redirect:/event/all";
+            return "redirect:/events/all";
         }
         EventDto event = new EventDto();
         model.addAttribute("clubId", clubId);
@@ -57,9 +57,11 @@ public class EventController {
         return "clubs/events/events-create";
     }
 
-    @PostMapping("/{clubId}/new")
-    public String saveEvent(@PathVariable("clubId") Long clubId, @Valid @ModelAttribute("event") EventDto event,
-            RedirectAttributes redirectAttributes) {
+    @PostMapping("{clubId}/new")
+    public String saveEvent(@PathVariable("clubId") Long clubId,
+            @Valid @ModelAttribute("event") EventDto event,
+            BindingResult result,
+            RedirectAttributes redirectAttributes, Model model) {
         ClubDto club;
         try {
             club = clubService.findById(clubId);
@@ -69,12 +71,17 @@ public class EventController {
         }
         if (!club.getCreatedBy().getUsername().equals(SecurityUtil.getSessionUser())) {
             redirectAttributes.addFlashAttribute("error", "You don't have permission to add events to this club.");
-            return "redirect:/event/all";
+            return "redirect:/events/all";
+        }
+        if (result.hasErrors()) {
+            model.addAttribute("clubId", clubId);
+            model.addAttribute("event", event);
+            return "clubs/events/events-create";
         }
         try {
             eventService.save(clubId, event);
         } catch (NotFoundException e) {
-            redirectAttributes.addFlashAttribute("error", "Event Not Found.");
+            redirectAttributes.addFlashAttribute("error", "Event not found.");
             return "redirect:/events/all";
         }
         return "redirect:/clubs/" + clubId;
@@ -109,7 +116,9 @@ public class EventController {
     }
 
     @GetMapping("/{eventId}")
-    public String getEventDetail(@PathVariable long eventId, Model model, RedirectAttributes redirectAttributes) {
+    public String getEventDetail(@PathVariable long eventId,
+            Model model,
+            RedirectAttributes redirectAttributes) {
         EventDto event;
         try {
             event = eventService.findById(eventId);
@@ -130,9 +139,11 @@ public class EventController {
     }
 
     @PostMapping("/{eventId}/delete")
-    public String deleteEvent(@PathVariable long eventId, RedirectAttributes redirectAttributes) {
+    public String deleteEvent(@PathVariable long eventId,
+            RedirectAttributes redirectAttributes) {
+        EventDto event;
         try {
-            EventDto event = eventService.findById(eventId);
+            event = eventService.findById(eventId);
             if (!event.getClub().getCreatedBy().equals(SecurityUtil.getSessionUser())) {
                 redirectAttributes.addFlashAttribute("error", "You don't have permission to delete this event.");
                 return "redirect:/event/all";
@@ -146,7 +157,8 @@ public class EventController {
     }
 
     @GetMapping("/{eventId}/edit")
-    public String editEventForm(@PathVariable("eventId") long eventId, RedirectAttributes redirectAttributes,
+    public String editEventForm(@PathVariable("eventId") long eventId,
+            RedirectAttributes redirectAttributes,
             @NotNull Model model) {
         EventDto event;
         try {
@@ -165,10 +177,14 @@ public class EventController {
 
     @PostMapping("/{eventId}/edit")
     public String updateEvent(@PathVariable("eventId") long eventId,
-            @Valid @ModelAttribute("event") EventDto event, SessionStatus status, RedirectAttributes redirectAttributes,
-            BindingResult result) {
+            @Valid @ModelAttribute("event") EventDto event,
+            BindingResult result,
+            SessionStatus status,
+            RedirectAttributes redirectAttributes,
+            Model model) {
 
         if (result.hasErrors()) {
+            model.addAttribute("event", event);
             return "clubs/events/events-edit";
         }
         event.setId(eventId);
@@ -185,5 +201,4 @@ public class EventController {
         status.setComplete();
         return "redirect:/events/all";
     }
-
 }

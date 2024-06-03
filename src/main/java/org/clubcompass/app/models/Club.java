@@ -46,7 +46,7 @@ public class Club {
     @Column(name = "description", length = 10000)
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "created_by", nullable = false)
     private UserEntity createdBy;
 
@@ -59,7 +59,7 @@ public class Club {
     private LocalDateTime updatedAt;
 
     @Builder.Default
-    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "club", fetch = FetchType.LAZY)
     private List<Event> events = new ArrayList<>();
 
 }

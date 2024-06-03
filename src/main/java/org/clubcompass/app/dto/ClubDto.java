@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.clubcompass.app.models.UserEntity;
+import org.springframework.validation.annotation.Validated;
 
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
+@Validated
 public class ClubDto {
 
     private Long id;

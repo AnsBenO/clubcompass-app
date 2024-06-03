@@ -102,8 +102,9 @@ public class ClubController {
     public String editClubForm(@PathVariable("clubId") long clubId,
             RedirectAttributes redirectAttributes,
             @NotNull Model model) {
+        ClubDto club;
         try {
-            ClubDto club = clubService.findById(clubId);
+            club = clubService.findById(clubId);
             if (!club.getCreatedBy().getUsername().equals(SecurityUtil.getSessionUser())) {
                 redirectAttributes.addFlashAttribute("error", "You don't have permission to update this club.");
                 return "redirect:/clubs/all";
@@ -119,9 +120,10 @@ public class ClubController {
     @PostMapping("/{clubId}/edit")
     public String updateClub(@PathVariable("clubId") long clubId,
             @Valid @ModelAttribute("club") ClubDto club,
+            BindingResult result,
             SessionStatus status,
             RedirectAttributes redirectAttributes,
-            BindingResult result) {
+            Model model) {
 
         if (result.hasErrors()) {
             return "clubs/clubs-edit";

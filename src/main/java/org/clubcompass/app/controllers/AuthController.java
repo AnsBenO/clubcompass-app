@@ -33,7 +33,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") RegistrationDto user, BindingResult result) {
+    public String registerUser(
+            @Valid @ModelAttribute("user") RegistrationDto user,
+            BindingResult result) {
         if (isUserAuthenticated()) {
             return "redirect:/clubs/all";
         }
