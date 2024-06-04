@@ -23,7 +23,6 @@ import jakarta.validation.constraints.NotNull;
 @Setter
 @Validated
 public class EventDto {
-    @NotNull
     private Long id;
 
     @NotEmpty(message = "name shouldn't be empty")
@@ -49,6 +48,5 @@ public class EventDto {
 
     private LocalDate updatedAt;
 
-    @NotNull
     private PartialClubDto club;
 }
