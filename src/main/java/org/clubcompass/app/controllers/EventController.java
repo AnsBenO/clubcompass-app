@@ -10,8 +10,6 @@ import org.clubcompass.app.services.club.ClubService;
 import org.clubcompass.app.services.event.EventService;
 import org.clubcompass.app.services.user.UserService;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
