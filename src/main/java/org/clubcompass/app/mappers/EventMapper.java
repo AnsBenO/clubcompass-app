@@ -1,8 +1,7 @@
 package org.clubcompass.app.mappers;
 
 import org.clubcompass.app.dto.EventDto;
-import org.clubcompass.app.dto.PartialClubDto;
-import org.clubcompass.app.models.Club;
+
 import org.clubcompass.app.models.Event;
 
 public class EventMapper {
@@ -20,6 +19,7 @@ public class EventMapper {
                 .photoUrl(eventDto.getPhotoUrl())
                 .createdAt(eventDto.getCreatedAt())
                 .updatedAt(eventDto.getUpdatedAt())
+                .club(ClubMapper.mapToClub(eventDto.getClub()))
                 .build();
     }
 
@@ -34,15 +34,7 @@ public class EventMapper {
                 .photoUrl(event.getPhotoUrl())
                 .createdAt(event.getCreatedAt())
                 .updatedAt(event.getUpdatedAt())
-                .club(mapToPartialClubDto(event.getClub()))
-                .build();
-    }
-
-    public static PartialClubDto mapToPartialClubDto(Club club) {
-        return PartialClubDto.builder()
-                .id(club.getId())
-                .title(club.getTitle())
-                .createdBy(club.getCreatedBy().getUsername())
+                .club(ClubMapper.mapToPartialClubDto(event.getClub()))
                 .build();
     }
 

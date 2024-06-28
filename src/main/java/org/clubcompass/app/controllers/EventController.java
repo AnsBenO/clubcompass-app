@@ -144,7 +144,7 @@ public class EventController {
         EventDto event;
         try {
             event = eventService.findById(eventId);
-            if (!event.getClub().getCreatedBy().equals(SecurityUtil.getSessionUser())) {
+            if (!event.getClub().getCreatedBy().getUsername().equals(SecurityUtil.getSessionUser())) {
                 redirectAttributes.addFlashAttribute("error", "You don't have permission to delete this event.");
                 return "redirect:/event/all";
             }
@@ -163,7 +163,7 @@ public class EventController {
         EventDto event;
         try {
             event = eventService.findById(eventId);
-            if (!event.getClub().getCreatedBy().equals(SecurityUtil.getSessionUser())) {
+            if (!event.getClub().getCreatedBy().getUsername().equals(SecurityUtil.getSessionUser())) {
                 redirectAttributes.addFlashAttribute("error", "You don't have permission to update this event.");
                 return "redirect:/clubs/all";
             }
@@ -189,7 +189,7 @@ public class EventController {
         }
         event.setId(eventId);
         try {
-            if (!event.getClub().getCreatedBy().equals(SecurityUtil.getSessionUser())) {
+            if (!event.getClub().getCreatedBy().getUsername().equals(SecurityUtil.getSessionUser())) {
                 redirectAttributes.addFlashAttribute("error", "You don't have permission to update this event.");
                 return "redirect:/clubs/all";
             }

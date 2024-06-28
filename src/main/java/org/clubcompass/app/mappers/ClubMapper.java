@@ -3,6 +3,7 @@ package org.clubcompass.app.mappers;
 import java.util.stream.Collectors;
 
 import org.clubcompass.app.dto.ClubDto;
+import org.clubcompass.app.dto.PartialClubDto;
 import org.clubcompass.app.models.Club;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,6 +38,22 @@ public class ClubMapper {
                                 .events(clubDto.getEvents().stream()
                                                 .map(EventMapper::mapToEvent)
                                                 .collect(Collectors.toList()))
+                                .build();
+        }
+
+        public static PartialClubDto mapToPartialClubDto(Club club) {
+                return PartialClubDto.builder()
+                                .id(club.getId())
+                                .title(club.getTitle())
+                                .createdBy(club.getCreatedBy())
+                                .build();
+        }
+
+        public static Club mapToClub(PartialClubDto partialClubDto) {
+                return Club.builder()
+                                .id(partialClubDto.getId())
+                                .title(partialClubDto.getTitle())
+                                .createdBy(partialClubDto.getCreatedBy())
                                 .build();
         }
 }

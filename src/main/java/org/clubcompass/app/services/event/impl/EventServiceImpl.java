@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.clubcompass.app.dto.EventDto;
+import org.clubcompass.app.dto.PartialClubDto;
+import org.clubcompass.app.mappers.ClubMapper;
 import org.clubcompass.app.mappers.EventMapper;
 import org.clubcompass.app.models.Club;
 import org.clubcompass.app.models.Event;
@@ -26,7 +28,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventDto> findAll() {
         List<Event> events = eventRepository.findAll();
-        return events.stream().map((event -> EventMapper.mapToEventDto(event)))
+        return events.stream().map((EventMapper::mapToEventDto))
                 .collect(Collectors.toList());
     }
 
@@ -35,8 +37,8 @@ public class EventServiceImpl implements EventService {
         Optional<Club> foundClub = clubRepository.findById(clubId);
         if (foundClub.isPresent()) {
             Club club = foundClub.get();
+            eventDto.setClub(ClubMapper.mapToPartialClubDto(club));
             Event event = EventMapper.mapToEvent(eventDto);
-            event.setClub(club);
             eventRepository.save(event);
             return EventMapper.mapToEventDto(event);
         }
@@ -81,7 +83,7 @@ public class EventServiceImpl implements EventService {
     public List<EventDto> search(String query) {
         List<Event> foundEvents = eventRepository.searchEvent(query);
         return foundEvents.stream()
-                .map((event) -> EventMapper.mapToEventDto(event))
+                .map(EventMapper::mapToEventDto)
                 .collect(Collectors.toList());
     }
 

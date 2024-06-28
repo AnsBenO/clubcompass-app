@@ -36,7 +36,8 @@ public class SecurityConfig {
         @Bean
         SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-                http.csrf(csrf -> csrf.disable());
+                // http.csrf(csrf -> csrf.disable());
+                // http.csrf(Object::notifyAll);
 
                 // Define which requests are allowed without authentication
                 http.authorizeHttpRequests(request -> request
@@ -78,7 +79,6 @@ public class SecurityConfig {
 
                                 // Allow anyone to access these URLs
                                 .permitAll());
-
                 return http.build();
 
         }

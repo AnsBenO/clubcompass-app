@@ -26,6 +26,11 @@
 				th:action="@{/events/{clubId}/new(clubId=${clubId})}"
 				method="post"
 			>
+				<input
+					type="hidden"
+					th:name="${_csrf.parameterName}"
+					th:value="${_csrf.token}"
+				/>
 				<div class="col-span-2 mb-6">
 					<label
 						for="name"

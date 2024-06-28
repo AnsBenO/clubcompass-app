@@ -59,7 +59,7 @@ public class Club {
     private LocalDateTime updatedAt;
 
     @Builder.Default
-    @OneToMany(mappedBy = "club", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "club", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Event> events = new ArrayList<>();
 
 }

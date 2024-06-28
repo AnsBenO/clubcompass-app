@@ -26,8 +26,8 @@
 		<h2
 			class="text-center text-indigo-100 text-2xl font-bold tracking-wide capitalize py-2 flex flex-col gap-5 my-7 font-rubik"
 		>
-			<i class="fa-solid fa-cubes text-5xl"></i> Create Your Account and Join
-			Our Community!
+			<i class="fa-solid fa-cubes text-5xl"></i> Create Your Account and
+			Join Our Community!
 		</h2>
 		<div class="max-w-md mx-auto bg-white shadow-lg rounded-lg mt-8 mb-9">
 			<form
@@ -36,6 +36,11 @@
 				th:action="@{/register}"
 				method="post"
 			>
+				<input
+					type="hidden"
+					th:name="${_csrf.parameterName}"
+					th:value="${_csrf.token}"
+				/>
 				<div class="mb-1">
 					<label
 						for="username"
