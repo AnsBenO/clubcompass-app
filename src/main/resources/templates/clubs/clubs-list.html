@@ -19,6 +19,8 @@
 		<div
 			layout:fragment="body"
 			class="w-full"
+			data-location="club-list"
+			id="content"
 		>
 			<!--? Search Section -->
 			<div
@@ -33,6 +35,11 @@
 						Groups of passionate people near you
 					</h2>
 					<div class="flex items-center space-x-4">
+						<input
+							type="hidden"
+							th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}"
+						/>
 						<input
 							th:value="${param.query}"
 							type="text"

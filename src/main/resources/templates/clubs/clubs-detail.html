@@ -10,29 +10,38 @@
 	</head>
 	<!-- ? CLUB DETAILS-->>
 	<body>
+		<!-- ? CLUB DETAIL PAGE -->
 		<div
 			layout:fragment="body"
-			class="bg-gray-50 w-full md:px-10 py-8 rounded-md mb-8"
+			class="bg-gray-50 w-full md:px-10 py-8 mb-8"
+			data-location="club-detail"
+			id="content"
 		>
 			<div class="container mx-auto">
-				<!-- ? Club Details Section -->
+				<!-- Hero Section -->
 				<div
-					class="bg-white shadow-lg rounded-lg p-8 mb-8 transition duration-300 ease-in-out transform"
+					class="bg-gray-800 text-white p-8 rounded-lg mb-8 flex flex-col lg:flex-row items-center justify-between"
 				>
-					<div
-						class="flex flex-col lg:flex-row items-center justify-between mb-6"
-					>
+					<div class="flex flex-col lg:w-2/3">
 						<h2
-							class="text-4xl font-extrabold text-gray-900 mb-4 lg:mb-0"
+							class="text-4xl font-extrabold mb-4"
 							th:text="${club.title}"
-						></h2>
+						>
+							Club Title
+						</h2>
+						<p
+							class="text-lg"
+							th:text="${club.description}"
+						>
+							Club Description
+						</p>
 						<div
-							class="flex space-x-4"
+							class="mt-6 flex space-x-4"
 							th:if="${user.id} == ${club.createdBy.id}"
 						>
 							<a
 								th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}"
-								class="btn edit bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-xl hover:from-blue-600 hover:to-indigo-600 transition duration-300 ease-in-out transform hover:scale-105"
+								class="btn edit bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-600 transition duration-300 ease-in-out"
 							>
 								<i class="fas fa-pencil-alt mr-1"></i> Edit
 							</a>
@@ -49,83 +58,95 @@
 								/>
 								<button
 									type="submit"
-									class="btn delete bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-xl hover:from-red-600 hover:to-pink-600 transition duration-300 ease-in-out transform hover:scale-105"
+									class="btn delete bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:from-red-600 hover:to-pink-600 transition duration-300 ease-in-out"
 								>
 									<i class="fas fa-trash-alt mr-1"></i> Delete
 								</button>
 							</form>
 							<a
 								th:href="@{/events/{clubId}/new(clubId=${club.id})}"
-								class="btn create-event bg-gradient-to-r from-green-500 to-teal-500 text-white px-4 py-2 rounded-xl hover:from-green-600 hover:to-teal-600 transition duration-300 ease-in-out transform hover:scale-105"
+								class="btn create-event bg-gradient-to-r from-green-500 to-teal-500 text-white px-4 py-2 rounded-lg hover:from-green-600 hover:to-teal-600 transition duration-300 ease-in-out"
 							>
 								<i class="fas fa-plus mr-1"></i> Create Event
 							</a>
 						</div>
 					</div>
-					<section class="club-content flex flex-col lg:flex-row">
-						<div class="club-image lg:w-1/3 lg:mr-4 mb-4 lg:mb-0">
-							<img
-								th:src="@{${club.photoUrl}}"
-								alt="Club"
-								class="w-full h-auto rounded-md transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
-							/>
-						</div>
-						<div class="club-description lg:w-2/3">
-							<p
-								class="text-gray-700 text-lg mb-4"
-								th:text="${club.description}"
-							></p>
-							<div class="club-dates mt-4">
-								<p class="text-gray-600">
-									Created at:
-									<span
-										class="font-medium"
-										th:text="${#temporals.format(club.createdAt, 'yyyy-MM-dd HH:mm:ss')}"
-									></span>
-								</p>
-								<p class="text-gray-600">
-									Last updated at:
-									<span
-										class="font-medium"
-										th:text="${#temporals.format(club.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"
-									></span>
-								</p>
-							</div>
-						</div>
-					</section>
+					<div class="lg:w-1/3 mt-8 lg:mt-0">
+						<img
+							th:src="@{${club.photoUrl}}"
+							alt="Club"
+							class="w-full h-auto rounded-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+						/>
+					</div>
 				</div>
 
-				<!-- Event Section -->
-				<section
-					class="event-section bg-white rounded-lg shadow-md p-8"
-				>
+				<!-- Content Section -->
+				<div class="flex flex-col lg:flex-row">
+					<!-- Topics Section -->
 					<div
-						class="search-bar mb-6 max-w-lg mx-auto"
-						th:if="${!#lists.isEmpty(club.events)}"
+						class="w-full lg:w-1/4 bg-white p-8 rounded-lg shadow-md mb-8 lg:mb-0 lg:mr-8"
 					>
-						<form
-							th:action="@{/clubs/{clubId}/events}"
-							method="get"
-							class="flex items-center"
-						>
-							<input
-								type="text"
-								name="query"
-								placeholder="Search events..."
-								class="border border-gray-300 rounded-l-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
-							/>
-							<button
-								type="submit"
-								class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600 transition duration-300 ease-in-out"
-							>
-								<i class="fa fa-search"></i>
-							</button>
-						</form>
+						<h3 class="text-2xl font-bold mb-4">Topics</h3>
+						<ul class="space-y-2">
+							<li>
+								<a
+									href="#"
+									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
+									>Product Design</a
+								>
+							</li>
+							<li>
+								<a
+									href="#"
+									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
+									>Product Roadmaps</a
+								>
+							</li>
+							<li>
+								<a
+									href="#"
+									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
+									>Customer Experience</a
+								>
+							</li>
+							<li>
+								<a
+									href="#"
+									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
+									>Data Visualization</a
+								>
+							</li>
+							<li>
+								<a
+									href="#"
+									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
+									>Product Management</a
+								>
+							</li>
+							<li>
+								<a
+									href="#"
+									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
+									>Product Marketing</a
+								>
+							</li>
+							<li>
+								<a
+									href="#"
+									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
+									>Product Launches</a
+								>
+							</li>
+						</ul>
 					</div>
 
-					<div class="events-list">
+					<!-- Events Section -->
+					<div
+						class="w-full lg:w-3/4 bg-white p-8 rounded-lg shadow-md"
+					>
+						<h3 class="text-2xl font-bold mb-4">Browse</h3>
 						<div
-							class="card-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+							class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
 						>
 							<div
 								th:each="event : ${club.events}"
@@ -143,24 +164,29 @@
 										th:text="${event.name}"
 										th:href="@{/events/{eventId}(eventId=${event.id})}"
 										class="text-lg font-bold text-gray-800 hover:text-blue-500 transition duration-300 ease-in-out block mb-2"
-									></a>
+										>Event Name</a
+									>
 									<p
 										th:text="${event.content}"
 										class="text-gray-700 mb-4"
-									></p>
+									>
+										Event Content
+									</p>
 									<p class="text-gray-700">
 										<i class="fa fa-calendar-alt mr-1"></i>
 										Start Time:
 										<span
 											th:text="${#temporals.format(event.startTime, 'yyyy-MM-dd HH:mm:ss')}"
-										></span>
+											>Start Time</span
+										>
 									</p>
 									<p class="text-gray-700">
 										<i class="fa fa-calendar-alt mr-1"></i>
 										End Time:
 										<span
 											th:text="${#temporals.format(event.endTime, 'yyyy-MM-dd HH:mm:ss')}"
-										></span>
+											>End Time</span
+										>
 									</p>
 								</div>
 							</div>
@@ -173,9 +199,17 @@
 								No events found.
 							</p>
 						</div>
+						<div class="text-center mt-6">
+							<button
+								class="btn load-more bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out"
+							>
+								Load More
+							</button>
+						</div>
 					</div>
-				</section>
+				</div>
 			</div>
 		</div>
+		<!-- ? END OF CLUB DETAIL PAGE -->
 	</body>
 </html>

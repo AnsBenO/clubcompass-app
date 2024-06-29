@@ -1,16 +1,17 @@
 @media (min-width: 768px) {
-	#navbar-default.active {
+	#navbar-default.expanded {
 		animation: none;
 	}
-	#navbar-default.active > ul {
+	#navbar-default.expanded > ul {
 		animation: none;
 	}
 }
+
 @media (max-width: 767px) {
-	#navbar-default.active {
+	#navbar-default.expanded {
 		animation: animate-nav 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	}
-	#navbar-default.active > ul {
+	#navbar-default.expanded > ul {
 		animation: animate-nav-content 1s
 			cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	}
@@ -27,9 +28,9 @@
 
 @keyframes animate-nav-content {
 	0% {
-		opacity: 0%;
+		opacity: 0;
 	}
 	100% {
-		opacity: 100%;
+		opacity: 1;
 	}
 }

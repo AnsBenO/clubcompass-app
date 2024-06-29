@@ -15,7 +15,11 @@
 	</head>
 
 	<body>
-		<div layout:fragment="body">
+		<div
+			layout:fragment="body"
+			id="content"
+			data-location="home"
+		>
 			<div class="bg-gray-100 p-7">
 				<div class="container mx-auto px-4 py-8">
 					<h1
@@ -42,32 +46,39 @@
 						<p
 							class="text-xl text-gray-700 font-rubik bg-gray-200 rounded-lg p-5 md:p-10"
 						>
-							ClubCompass is your ultimate guide to discovering vibrant clubs
-							and exciting events around you. With our intuitive platform, you
-							can effortlessly explore a wide range of clubs catering to various
-							interests, from sports and hobbies to arts and culture. Dive into
-							a world of endless possibilities, connect with like-minded
-							individuals, and embark on unforgettable adventures with
-							ClubCompass!
-							<span class="block text-right text-sm text-gray-400 mt-2 italic"
-								>ClubCompass Team <i class="fa-solid fa-cubes"></i
+							ClubCompass is your ultimate guide to discovering
+							vibrant clubs and exciting events around you. With
+							our intuitive platform, you can effortlessly explore
+							a wide range of clubs catering to various interests,
+							from sports and hobbies to arts and culture. Dive
+							into a world of endless possibilities, connect with
+							like-minded individuals, and embark on unforgettable
+							adventures with ClubCompass!
+							<span
+								class="block text-right text-sm text-gray-400 mt-2 italic"
+								>ClubCompass Team
+								<i class="fa-solid fa-cubes"></i
 							></span>
 						</p>
 					</div>
 
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+					<div
+						class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+					>
 						<div
 							class="p-6 bg-white rounded-md shadow-md transform hover:scale-105 transition duration-300 ease-in-out"
 						>
 							<h2
 								class="text-xl font-semibold mb-4 flex justify-center gap-2 items-baseline"
 							>
-								<i class="fa-regular fa-compass text-blue-500"></i> Explore
-								Clubs
+								<i
+									class="fa-regular fa-compass text-blue-500"
+								></i>
+								Explore Clubs
 							</h2>
 							<p class="text-gray-700 mb-4">
-								Discover a wide range of clubs to join and engage with
-								like-minded individuals.
+								Discover a wide range of clubs to join and
+								engage with like-minded individuals.
 							</p>
 							<a
 								th:href="@{/clubs/all}"
@@ -82,12 +93,14 @@
 							<h2
 								class="text-xl font-semibold mb-4 flex justify-center gap-2 items-baseline"
 							>
-								<i class="fa-regular fa-calendar-days text-blue-500"></i> Attend
-								Events
+								<i
+									class="fa-regular fa-calendar-days text-blue-500"
+								></i>
+								Attend Events
 							</h2>
 							<p class="text-gray-700 mb-4">
-								Find exciting events happening near you and connect with fellow
-								enthusiasts.
+								Find exciting events happening near you and
+								connect with fellow enthusiasts.
 							</p>
 							<a
 								th:href="@{/events/all}"
@@ -102,12 +115,14 @@
 							<h2
 								class="text-xl font-semibold mb-4 flex justify-center gap-2 items-baseline"
 							>
-								<i class="fa-solid fa-cubes-stacked text-blue-500"></i> Create
-								New Club
+								<i
+									class="fa-solid fa-cubes-stacked text-blue-500"
+								></i>
+								Create New Club
 							</h2>
 							<p class="text-gray-700 mb-4">
-								Start your own club and bring together people who share your
-								interests.
+								Start your own club and bring together people
+								who share your interests.
 							</p>
 							<a
 								th:href="@{/clubs/new}"
