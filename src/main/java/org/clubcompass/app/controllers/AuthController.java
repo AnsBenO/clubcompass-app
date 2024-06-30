@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -53,9 +54,13 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage() {
-        if (isUserAuthenticated()) {
-            return "redirect:/clubs/all";
+    public String showLoginForm(Model model, @RequestParam(value = "error", required = false) String error,
+            @RequestParam(value = "logout", required = false) String logout) {
+        if (error != null) {
+            model.addAttribute("error", "Invalid credentials");
+        }
+        if (logout != null) {
+            model.addAttribute("logout", "You have been logged out");
         }
         return "auth/login";
     }

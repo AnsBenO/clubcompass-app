@@ -99,7 +99,7 @@
 								<a
 									href="#"
 									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
-									>Product Roadmaps</a
+									>Product Roadmap</a
 								>
 							</li>
 							<li>
@@ -209,6 +209,12 @@
 					</div>
 				</div>
 			</div>
+			<div
+				th:replace="~{fragments/error-message :: errorMessageBox(error=${error})}"
+			></div>
+			<div
+				th:replace="~{/fragments/success-message :: successMessageBox (message=${success})}"
+			></div>
 		</div>
 		<!-- ? END OF CLUB DETAIL PAGE -->
 	</body>

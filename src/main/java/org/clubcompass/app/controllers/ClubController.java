@@ -88,12 +88,16 @@ public class ClubController {
 
     @PostMapping("/new")
     public String saveClub(@Valid @ModelAttribute("club") ClubDto club,
+            @NotNull Model model,
+            RedirectAttributes redirectAttributes,
             BindingResult result) {
 
         if (result.hasErrors()) {
             return "clubs/clubs-create";
         }
         clubService.save(club);
+        redirectAttributes.addFlashAttribute("success", "Club Created Successfully");
+
         return "redirect:/clubs/all";
 
     }
@@ -135,6 +139,7 @@ public class ClubController {
         club.setId(clubId);
         clubService.update(club);
         status.setComplete();
+        redirectAttributes.addFlashAttribute("success", "Club Updated Successfully");
         return "redirect:/clubs/all";
     }
 
@@ -147,10 +152,11 @@ public class ClubController {
                 return "redirect:/clubs/all";
             }
             clubService.deleteById(clubId);
+            redirectAttributes.addFlashAttribute("success", "Club Deleted Successfully");
             return "redirect:/clubs/all";
         } catch (NotFoundException e) {
 
-            redirectAttributes.addFlashAttribute("error", "Club not found.");
+            redirectAttributes.addFlashAttribute("error", "Club Not Found.");
             return "redirect:/clubs/all";
         }
     }

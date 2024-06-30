@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+			xmlns:th="http://thymeleaf.org"
+		/>
+		<title>navbar</title>
+	</head>
+	<body>
+		<nav
+			class="font-noto bg-gradient-to-r from-black via-gray-900 to-gray-800 text-white"
+		>
+			<div
+				class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2"
+			>
+				<a
+					th:href="@{/}"
+					class="flex items-center space-x-3 rtl:space-x-reverse"
+				>
+					<img
+						th:src="@{/assets/ClubCompass_transparent.png}"
+						class="w-40"
+						alt="Logo"
+						style="filter: brightness(0) invert(1)"
+					/>
+				</a>
+				<button
+					id="toggleButton"
+					type="button"
+					class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden focus:outline-none focus:ring-2 hover:bg-gray-700 focus:ring-gray-600"
+					onclick="toggleNav()"
+				>
+					<span class="sr-only">Open main menu</span>
+					<i class="fa-solid fa-bars text-lg"></i>
+				</button>
+				<div
+					class="hidden w-full md:block md:w-auto"
+					id="navbar-default"
+				>
+					<ul
+						class="font-medium flex flex-col md:p-0 mt-4 rounded-lg bg-transparent md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 gap-1 p-2"
+						id="links"
+					>
+						<li>
+							<a
+								th:href="@{/}"
+								class="block py-2 px-2 text-white rounded hover:bg-gray-800 hover:text-gray-100"
+								data-location="home"
+								>Home</a
+							>
+						</li>
+						<li>
+							<a
+								th:href="@{/clubs/all}"
+								class="block py-2 px-2 text-white rounded hover:bg-gray-800 hover:text-gray-100"
+								data-location="club-list"
+								>Clubs</a
+							>
+						</li>
+						<li>
+							<a
+								th:href="@{/events/all}"
+								class="block py-2 px-2 text-white rounded hover:bg-gray-800 hover:text-gray-100"
+								data-location="event-list"
+								>Events</a
+							>
+						</li>
+						<li sec:authorize="isAuthenticated()">
+							<a
+								th:href="@{/clubs/new}"
+								class="block py-2 px-2 text-white rounded hover:bg-gray-800 hover:text-gray-100"
+								data-location="club-create"
+								>Create New Club</a
+							>
+						</li>
+						<li
+							class="flex flex-col gap-1 justify-start md:flex-row"
+						>
+							<div sec:authorize="!isAuthenticated()">
+								<a
+									th:href="@{/login}"
+									class="block bg-gradient-to-r text-white py-2 px-4 rounded-md from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
+									>Login</a
+								>
+							</div>
+							<div sec:authorize="!isAuthenticated()">
+								<a
+									th:href="@{/register}"
+									class="block bg-gradient-to-r text-white py-2 px-4 rounded-md from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
+									>Register</a
+								>
+							</div>
+							<div sec:authorize="isAuthenticated()">
+								<a
+									th:href="@{/logout}"
+									class="block bg-gradient-to-r text-white py-2 px-4 rounded-md from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
+									>Logout</a
+								>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<script>
+				function toggleNav() {
+					var navbar = document.getElementById("navbar-default");
+					var button = document.getElementById("toggleButton");
+					if (navbar.classList.contains("hidden")) {
+						navbar.classList.remove("hidden");
+						navbar.classList.add("expanded");
+						button.setAttribute("aria-expanded", "true");
+					} else {
+						navbar.classList.add("hidden");
+						navbar.classList.remove("expanded");
+						button.setAttribute("aria-expanded", "false");
+					}
+				}
+				function setActiveLink() {
+					const content = document.getElementById("content");
+					const dataLocation = content.getAttribute("data-location");
+					const links = document.querySelectorAll("#links a");
+					links.forEach((link) => {
+						if (
+							link.getAttribute("data-location") === dataLocation
+						) {
+							link.classList.add("bg-blue-500", "text-white");
+							link.classList.remove("hover:bg-gray-800");
+						} else {
+							link.classList.remove("bg-blue-500", "text-white");
+							link.classList.add("hover:bg-gray-800");
+						}
+					});
+				}
+
+				document.addEventListener("DOMContentLoaded", setActiveLink);
+			</script>
+		</nav>
+	</body>
+</html>

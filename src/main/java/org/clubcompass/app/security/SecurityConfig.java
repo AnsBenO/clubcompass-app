@@ -2,6 +2,7 @@ package org.clubcompass.app.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,14 +20,6 @@ public class SecurityConfig {
 
         private final CustomUserDetailsService customUserDetailsService;
 
-        /**
-         * Returns a new instance of the BCryptPasswordEncoder class, which implements
-         * the PasswordEncoder interface.
-         * This method is annotated with @Bean, which means that it will be registered
-         * as a bean in the Spring context.
-         *
-         * @return a new instance of the BCryptPasswordEncoder class
-         */
         @Bean
         static PasswordEncoder passwordEncoder() {
                 return new BCryptPasswordEncoder();
@@ -36,9 +29,7 @@ public class SecurityConfig {
         @Bean
         SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-                // http.csrf(csrf -> csrf.disable());
-                // http.csrf(Object::notifyAll);
-
+                http.csrf(Customizer.withDefaults());
                 // Define which requests are allowed without authentication
                 http.authorizeHttpRequests(request -> request
                                 .requestMatchers(
@@ -76,7 +67,6 @@ public class SecurityConfig {
 
                                 // URL for logout requests
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-
                                 // Allow anyone to access these URLs
                                 .permitAll());
                 return http.build();

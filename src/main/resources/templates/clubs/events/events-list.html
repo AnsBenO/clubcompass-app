@@ -142,7 +142,10 @@
 
 			<!--? ERROR MESSAGE BOX -->
 			<div
-				th:replace="fragments/error-message :: errorMessageBox(error=${error})"
+				th:replace="~{fragments/error-message :: errorMessageBox(error=${error})}"
+			></div>
+			<div
+				th:replace="~{/fragments/success-message :: successMessageBox (message=${success})}"
 			></div>
 		</div>
 	</body>

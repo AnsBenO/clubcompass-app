@@ -66,7 +66,7 @@ public class EventController {
         try {
             club = clubService.findById(clubId);
         } catch (NotFoundException e) {
-            redirectAttributes.addFlashAttribute("error", "Club not found.");
+            redirectAttributes.addFlashAttribute("error", "Club Not Found.");
             return "redirect:/clubs/all";
         }
         if (!club.getCreatedBy().getUsername().equals(SecurityUtil.getSessionUser())) {
@@ -84,6 +84,7 @@ public class EventController {
             redirectAttributes.addFlashAttribute("error", "Event not found.");
             return "redirect:/events/all";
         }
+        redirectAttributes.addFlashAttribute("success", "Event Created Successfully");
         return "redirect:/clubs/" + clubId;
     }
 
@@ -153,6 +154,7 @@ public class EventController {
             redirectAttributes.addFlashAttribute("error", "Event Not Found.");
             return "redirect:/events/all";
         }
+        redirectAttributes.addFlashAttribute("success", "Event Deleted Successfully");
         return "redirect:/events/all";
     }
 
@@ -199,6 +201,7 @@ public class EventController {
             return "redirect:/events/all";
         }
         status.setComplete();
+        redirectAttributes.addFlashAttribute("success", "Event Updated Successfully");
         return "redirect:/events/all";
     }
 }

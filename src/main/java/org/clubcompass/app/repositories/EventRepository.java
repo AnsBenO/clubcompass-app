@@ -8,7 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    @Query("SELECT e FROM Event e WHERE LOWER(e.name) LIKE CONCAT('%', LOWER(:query) ,'%')")
+    @Query("""
+            SELECT e
+            FROM Event e
+            WHERE LOWER(e.name)
+            LIKE CONCAT('%', LOWER(:query) ,'%')
+            """)
     List<Event> searchEvent(String query);
 
+    @Query("SELECT e.type FROM Event e")
+    List<String> getEventTypes();
 }
