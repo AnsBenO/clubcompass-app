@@ -44,7 +44,10 @@
 						>
 							Event Description
 						</p>
-						<div class="mt-6 flex space-x-4">
+						<div
+							class="mt-6 flex space-x-4"
+							th:if="${user.username == event.club.createdBy.username}"
+						>
 							<a
 								th:href="@{/events/{eventId}/edit(eventId=${event.id})}"
 								class="btn edit bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-600 transition duration-300 ease-in-out"

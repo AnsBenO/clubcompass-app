@@ -134,40 +134,8 @@
 			<!--? ERROR MESSAGE BOX -->
 			<div
 				th:if="${error}"
-				class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-2"
-				id="errorNotification"
-			>
-				<p th:text="${error}"></p>
-				<button
-					class="absolute top-0 bottom-0 right-0 px-4 py-3"
-					onclick="closeErrorNotification()"
-					onKeyPress="closeErrorNotification(event)"
-					onKeyDown="closeErrorNotification(event)"
-					onKeyUp="closeErrorNotification(event)"
-				>
-					<i class="fas fa-times-circle"></i>
-				</button>
-			</div>
-
-			<script>
-				// Close the error notification after 3 seconds
-				setTimeout(() => {
-					const errorNotification =
-						document.getElementById("errorNotification");
-					if (errorNotification) {
-						errorNotification.style.display = "none";
-					}
-				}, 3000);
-
-				// Function to close the error notification manually
-				function closeErrorNotification() {
-					const errorNotification =
-						document.getElementById("errorNotification");
-					if (errorNotification) {
-						errorNotification.style.display = "none";
-					}
-				}
-			</script>
+				th:replace="fragments/error-message :: errorMessageBox(error=${error})"
+			></div>
 		</div>
 	</body>
 </html>
