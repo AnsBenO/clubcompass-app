@@ -59,12 +59,8 @@
 								th:action="@{/events/{eventId}/delete(eventId=${event.id})}"
 								method="post"
 								style="display: inline"
+								th:method="DELETE"
 							>
-								<input
-									type="hidden"
-									name="_method"
-									value="delete"
-								/>
 								<button
 									type="submit"
 									class="btn delete bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:from-red-600 hover:to-pink-600 transition duration-300 ease-in-out"

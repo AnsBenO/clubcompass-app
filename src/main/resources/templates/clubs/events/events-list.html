@@ -42,11 +42,6 @@
 						class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4"
 					>
 						<input
-							type="hidden"
-							th:name="${_csrf.parameterName}"
-							th:value="${_csrf.token}"
-						/>
-						<input
 							th:value="${param.query}"
 							type="text"
 							name="query"
@@ -114,12 +109,8 @@
 									th:action="@{/events/{eventId}/delete(eventId=${event.id})}"
 									method="post"
 									style="display: inline"
+									th:method="DELETE"
 								>
-									<input
-										type="hidden"
-										name="_method"
-										value="delete"
-									/>
 									<button
 										type="submit"
 										class="btn delete bg-gradient-to-r from-red-500 to-pink-500 text-white py-2 px-4 rounded-md hover:from-red-600 hover:to-pink-600 transition duration-300 ease-in-out transform hover:scale-105"
