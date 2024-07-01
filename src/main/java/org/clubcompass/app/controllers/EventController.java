@@ -141,6 +141,25 @@ public class EventController {
 
     }
 
+    @GetMapping("/{eventId}/delete")
+    public String showDeleteEvent(@PathVariable long eventId,
+            RedirectAttributes redirectAttributes) {
+        EventDto event;
+        try {
+            event = eventService.findById(eventId);
+            if (!event.getClub().getCreatedBy().getUsername().equals(SecurityUtil.getSessionUser())) {
+                redirectAttributes.addFlashAttribute("error", "You don't have permission to delete this event.");
+                return "redirect:/event/all";
+            }
+            return "modals/delete-event";
+
+        } catch (NotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "Event Not Found.");
+            return "redirect:/events/all";
+        }
+
+    }
+
     @DeleteMapping("/{eventId}/delete")
     public String deleteEvent(@PathVariable long eventId,
             RedirectAttributes redirectAttributes) {

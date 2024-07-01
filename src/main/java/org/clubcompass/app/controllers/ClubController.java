@@ -145,6 +145,24 @@ public class ClubController {
         return "redirect:/clubs/all";
     }
 
+    @GetMapping("/{clubId}/delete")
+    public String showDeleteClub(@PathVariable long clubId, RedirectAttributes redirectAttributes, Model model) {
+        try {
+            ClubDto club = clubService.findById(clubId);
+            if (!club.getCreatedBy().getUsername().equals(SecurityUtil.getSessionUser())) {
+                redirectAttributes.addFlashAttribute("error", "You don't have permission to delete this club.");
+                return "redirect:/clubs/all";
+            }
+            model.addAttribute("club", club);
+            return "modals/delete-club";
+
+        } catch (NotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "Club Not Found.");
+            return "redirect:/clubs/all";
+        }
+
+    }
+
     @DeleteMapping("/{clubId}/delete")
     public String deleteClub(@PathVariable long clubId, RedirectAttributes redirectAttributes) {
         try {

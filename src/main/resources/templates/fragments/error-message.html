@@ -10,13 +10,13 @@
 	</head>
 	<body>
 		<div
-			class="bg-transparent fixed top-12 left-1/2 transform -translate-x-1/2 shadow-lg z-50 transition-all"
+			class="bg-transparent fixed top-12 left-1/2 transform -translate-x-1/2 z-50 transition-all"
 			th:fragment="errorMessageBox (error)"
 		>
 			<div
 				role="alert"
 				id="errorNotification"
-				class="p-4 text-sm rounded-lg bg-gray-800 text-red-400 w-full h-full fade-in"
+				class="p-4 shadow-lg text-sm rounded-lg bg-gray-800 text-red-400 w-full h-full fade-in"
 				th:if="${error}"
 			>
 				<span class="font-medium">Error!</span>
@@ -25,34 +25,28 @@
 					class=""
 				></span>
 				<button
-					class="ml-4 text-slate-800 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-500 focus:outline-none absolute right-1 top-0"
+					class="ml-4 text-slate-800 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-500 focus:outline-none absolute right-0 top-0"
 					onclick="closeErrorNotification()"
 					onKeyPress="closeErrorNotification(event)"
 					onKeyDown="closeErrorNotification(event)"
 					onKeyUp="closeErrorNotification(event)"
 				>
-					<i class="fas fa-times-circle"></i>
+					<i class="fas fa-times h-6 w-6"></i>
 				</button>
 			</div>
-			<script
-				th:inline="javascript"
-				type="text/javascript"
-			>
-				// Close the error notification after 10 seconds
+			<script th:inline="javascript">
 				setTimeout(() => {
 					const errorNotification =
 						document.getElementById("errorNotification");
 					if (errorNotification) {
 						errorNotification.classList.remove("fade-in");
 						errorNotification.classList.add("fade-out");
-						// Hide the element after the fade-out animation completes
 						setTimeout(() => {
 							errorNotification.classList.add("hidden-message");
 						}, 500);
 					}
 				}, 10000);
 
-				// Function to close the error notification manually
 				function closeErrorNotification() {
 					const errorNotification =
 						document.getElementById("errorNotification");
