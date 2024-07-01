@@ -7,6 +7,7 @@
 >
 	<head>
 		<title>Club's detail</title>
+		<script th:src="@{/js/deleteClubModal.js}"></script>
 	</head>
 	<!-- ? CLUB DETAILS-->>
 	<body>
@@ -41,27 +42,21 @@
 						>
 							<a
 								th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}"
-								class="btn edit bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-600 transition duration-300 ease-in-out"
+								class="btn edit bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-600 transition duration-300 ease-in-out hover:scale-105"
 							>
 								<i class="fas fa-pencil-alt mr-1"></i> Edit
 							</a>
-							<form
-								id="deleteForm"
-								th:action="@{/clubs/{clubId}/delete(clubId=${club.id})}"
-								method="post"
-								style="display: inline"
-								th:method="DELETE"
+
+							<button
+								type="button"
+								class="btn delete bg-gradient-to-r from-red-500 to-pink-500 text-white py-2 px-4 rounded-md hover:from-red-600 hover:to-pink-600 transition duration-300 ease-in-out transform hover:scale-105"
+								th:onclick="'showClubDeleteModal(' + ${club.id} + ')'"
 							>
-								<button
-									type="submit"
-									class="btn delete bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:from-red-600 hover:to-pink-600 transition duration-300 ease-in-out"
-								>
-									<i class="fas fa-trash-alt mr-1"></i> Delete
-								</button>
-							</form>
+								<i class="fas fa-trash-alt"></i> Delete
+							</button>
 							<a
 								th:href="@{/events/{clubId}/new(clubId=${club.id})}"
-								class="btn create-event bg-gradient-to-r from-green-500 to-teal-500 text-white px-4 py-2 rounded-lg hover:from-green-600 hover:to-teal-600 transition duration-300 ease-in-out"
+								class="btn create-event bg-gradient-to-r from-green-500 to-teal-500 text-white px-4 py-2 rounded-lg hover:from-green-600 hover:to-teal-600 transition duration-300 ease-in-out hover:scale-105"
 							>
 								<i class="fas fa-plus mr-1"></i> Create Event
 							</a>
@@ -211,6 +206,10 @@
 			<div
 				th:replace="~{/fragments/success-message :: successMessageBox (message=${success})}"
 			></div>
+			<!-- ? Empty div for modals -->
+			<div class="modalDiv">
+				<!--  ? modal content here -->
+			</div>
 		</div>
 		<!-- ? END OF CLUB DETAIL PAGE -->
 	</body>

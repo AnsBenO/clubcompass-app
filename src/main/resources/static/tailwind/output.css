@@ -626,8 +626,8 @@ video {
   left: 50%;
 }
 
-.right-1{
-  right: 0.25rem;
+.right-0{
+  right: 0px;
 }
 
 .top-0{
@@ -640,10 +640,6 @@ video {
 
 .top-full{
   top: 100%;
-}
-
-.right-0{
-  right: 0px;
 }
 
 .z-50{
@@ -1014,11 +1010,6 @@ video {
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
-.bg-red-600{
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-
 .bg-transparent{
   background-color: transparent;
 }
@@ -1166,11 +1157,6 @@ video {
 
 .p-8{
   padding: 2rem;
-}
-
-.px-1{
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
 }
 
 .px-2{
@@ -1626,9 +1612,9 @@ video {
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
-.focus\:ring-amber-500:focus{
+.focus\:ring-blue-500:focus{
   --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(245 158 11 / var(--tw-ring-opacity));
+  --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
 }
 
 .focus\:ring-gray-600:focus{
@@ -1644,11 +1630,6 @@ video {
 .focus\:ring-white:focus{
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity));
-}
-
-.focus\:ring-blue-500:focus{
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
 }
 
 .focus\:ring-offset-2:focus{

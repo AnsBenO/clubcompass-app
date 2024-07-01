@@ -12,10 +12,8 @@
 			content="width=device-width, initial-scale=1.0"
 		/>
 		<title>Events</title>
-		<link
-			rel="stylesheet"
-			th:href="@{/css/events-list.css}"
-		/>
+
+		<script th:src="@{/js/deleteEventModal.js}"></script>
 	</head>
 
 	<body>
@@ -104,20 +102,13 @@
 								>
 									<i class="fas fa-pencil-alt"></i> Edit
 								</a>
-								<form
-									id="deleteForm"
-									th:action="@{/events/{eventId}/delete(eventId=${event.id})}"
-									method="post"
-									style="display: inline"
-									th:method="DELETE"
+								<button
+									type="button"
+									class="btn delete bg-gradient-to-r from-red-500 to-pink-500 text-white py-2 px-4 rounded-md hover:from-red-600 hover:to-pink-600 transition duration-300 ease-in-out transform hover:scale-105"
+									th:onclick="'showEventDeleteModal(' + ${event.id} + ')'"
 								>
-									<button
-										type="submit"
-										class="btn delete bg-gradient-to-r from-red-500 to-pink-500 text-white py-2 px-4 rounded-md hover:from-red-600 hover:to-pink-600 transition duration-300 ease-in-out transform hover:scale-105"
-									>
-										<i class="fas fa-trash-alt"></i> Delete
-									</button>
-								</form>
+									<i class="fas fa-trash-alt"></i> Delete
+								</button>
 							</div>
 						</div>
 					</div>
@@ -138,6 +129,10 @@
 			<div
 				th:replace="~{/fragments/success-message :: successMessageBox (message=${success})}"
 			></div>
+			<!-- ? Empty div for modals -->
+			<div class="modalDiv">
+				<!--  ? modal content here -->
+			</div>
 		</div>
 	</body>
 </html>

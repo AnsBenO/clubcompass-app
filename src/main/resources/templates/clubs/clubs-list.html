@@ -13,6 +13,7 @@
 			content="width=device-width, initial-scale=1.0"
 		/>
 		<title>clubs</title>
+		<script th:src="@{/js/deleteClubModal.js}"></script>
 	</head>
 
 	<body>
@@ -93,7 +94,7 @@
 								<button
 									type="button"
 									class="btn delete bg-gradient-to-r from-red-500 to-pink-500 text-white py-2 px-4 rounded-md hover:from-red-600 hover:to-pink-600 transition duration-300 ease-in-out transform hover:scale-105"
-									th:onclick="'showDeleteModal(' + ${club.id} + ')'"
+									th:onclick="'showClubDeleteModal(' + ${club.id} + ')'"
 								>
 									<i class="fas fa-trash-alt"></i> Delete
 								</button>
@@ -121,41 +122,12 @@
 				th:replace="~{fragments/error-message :: errorMessageBox(error=${error})}"
 			></div>
 			<div
-				th:replace="~{/fragments/success-message :: successMessageBox (message=${success})}"
+				th:replace="~{/fragments/success-message :: successMessageBox(message=${success})}"
 			></div>
 			<!-- ? Empty div for modals -->
 			<div class="modalDiv">
 				<!--  ? modal content here -->
 			</div>
-			<script>
-				async function showDeleteModal(clubId) {
-					const response = await fetch(`/clubs/${clubId}/delete`);
-					if (response.ok) {
-						const modalContent =
-							document.querySelector(".modalDiv");
-
-						const text = await response.text();
-						console.log(text);
-						modalContent.innerHTML = text;
-						const modal = document.getElementById("deleteModal");
-						modal.classList.remove("hidden-message");
-						modal.classList.add("fade-in");
-						modal.classList.remove("fade-out");
-					} else {
-						console.error(response.statusText);
-					}
-				}
-				function closeModal() {
-					const modal = document.getElementById("deleteModal");
-					if (modal) {
-						modal.classList.remove("fade-in");
-						modal.classList.add("fade-out");
-						setTimeout(() => {
-							modal.classList.add("hidden-message");
-						}, 500);
-					}
-				}
-			</script>
 		</div>
 	</body>
 </html>
