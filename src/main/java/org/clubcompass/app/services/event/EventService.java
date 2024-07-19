@@ -18,4 +18,6 @@ public interface EventService extends Searchable<EventDto> {
 
     void deleteById(long id) throws NotFoundException;
 
+    List<String> getEventTypes();
+
 }

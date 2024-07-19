@@ -2,8 +2,8 @@ package org.clubcompass.app.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.clubcompass.app.models.Role;
-import org.clubcompass.app.models.Role.RoleName;
+import org.clubcompass.app.entities.Role;
+import org.clubcompass.app.entities.Role.RoleName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;

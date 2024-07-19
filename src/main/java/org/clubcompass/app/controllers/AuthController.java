@@ -1,7 +1,7 @@
 package org.clubcompass.app.controllers;
 
 import org.clubcompass.app.dto.RegistrationDto;
-import org.clubcompass.app.models.UserEntity;
+import org.clubcompass.app.entities.UserEntity;
 import org.clubcompass.app.services.user.UserService;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

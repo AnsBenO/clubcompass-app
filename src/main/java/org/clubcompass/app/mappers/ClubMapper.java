@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 import org.clubcompass.app.dto.ClubDto;
 import org.clubcompass.app.dto.PartialClubDto;
-import org.clubcompass.app.models.Club;
+import org.clubcompass.app.entities.Club;
 import org.jetbrains.annotations.NotNull;
 
 public class ClubMapper {

@@ -1,14 +1,13 @@
-package org.clubcompass.app.services.user.impl;
+package org.clubcompass.app.services.user;
 
 import java.util.Arrays;
 
 import org.clubcompass.app.dto.RegistrationDto;
-import org.clubcompass.app.models.Role;
-import org.clubcompass.app.models.UserEntity;
-import org.clubcompass.app.models.Role.RoleName;
+import org.clubcompass.app.entities.Role;
+import org.clubcompass.app.entities.UserEntity;
+import org.clubcompass.app.entities.Role.RoleName;
 import org.clubcompass.app.repositories.RoleRepository;
 import org.clubcompass.app.repositories.UserRepository;
-import org.clubcompass.app.services.user.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

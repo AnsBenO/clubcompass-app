@@ -1,8 +1,7 @@
 package org.clubcompass.app.mappers;
 
 import org.clubcompass.app.dto.EventDto;
-
-import org.clubcompass.app.models.Event;
+import org.clubcompass.app.entities.Event;
 
 public class EventMapper {
 

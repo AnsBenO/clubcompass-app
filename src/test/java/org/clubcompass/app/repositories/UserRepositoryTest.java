@@ -2,7 +2,7 @@ package org.clubcompass.app.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.clubcompass.app.models.UserEntity;
+import org.clubcompass.app.entities.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;

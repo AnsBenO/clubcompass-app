@@ -1,4 +1,4 @@
-package org.clubcompass.app.models;
+package org.clubcompass.app.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,16 +16,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "event")
 public class Event {

@@ -2,7 +2,7 @@ package org.clubcompass.app.security;
 
 import java.util.stream.Collectors;
 
-import org.clubcompass.app.models.UserEntity;
+import org.clubcompass.app.entities.UserEntity;
 import org.clubcompass.app.repositories.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -26,18 +26,16 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Try to find a user by the given username
         UserEntity user = userRepository.findFirstByUsername(username);
-        if (user != null) { // If the user was found
+        if (user != null) {
             return new User(
                     user.getUsername(),
                     user.getPassword(),
                     user.getRoles().stream()
                             .map(role -> new SimpleGrantedAuthority(role.getName().toString()))
-                            .collect((Collectors.toList()))); // Return the authenticated user
-        } else { // If the user was not found
-            throw new UsernameNotFoundException("Invalid Username or Password"); // Throw an exception to indicate that
-                                                                                 // the credentials were invalid
+                            .collect((Collectors.toList())));
+        } else {
+            throw new UsernameNotFoundException("Invalid Username or Password");
         }
     }
 

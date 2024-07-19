@@ -1,18 +1,16 @@
-package org.clubcompass.app.services.event.impl;
+package org.clubcompass.app.services.event;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.clubcompass.app.dto.EventDto;
-import org.clubcompass.app.dto.PartialClubDto;
+import org.clubcompass.app.entities.Club;
+import org.clubcompass.app.entities.Event;
 import org.clubcompass.app.mappers.ClubMapper;
 import org.clubcompass.app.mappers.EventMapper;
-import org.clubcompass.app.models.Club;
-import org.clubcompass.app.models.Event;
 import org.clubcompass.app.repositories.ClubRepository;
 import org.clubcompass.app.repositories.EventRepository;
-import org.clubcompass.app.services.event.EventService;
 import org.springframework.stereotype.Service;
 
 import javassist.NotFoundException;
@@ -85,6 +83,11 @@ public class EventServiceImpl implements EventService {
         return foundEvents.stream()
                 .map(EventMapper::mapToEventDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getEventTypes() {
+        return eventRepository.getEventTypes();
     }
 
 }

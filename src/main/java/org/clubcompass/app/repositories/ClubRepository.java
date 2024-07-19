@@ -3,7 +3,7 @@ package org.clubcompass.app.repositories;
 import java.util.List;
 import java.util.Optional;
 
-import org.clubcompass.app.models.Club;
+import org.clubcompass.app.entities.Club;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

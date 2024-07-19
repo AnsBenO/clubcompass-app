@@ -1,4 +1,4 @@
-package org.clubcompass.app.models;
+package org.clubcompass.app.entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,16 +20,13 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "club")
 public class Club {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.clubcompass.app.dto.ClubDto;
 import org.clubcompass.app.dto.EventDto;
-import org.clubcompass.app.models.UserEntity;
+import org.clubcompass.app.entities.UserEntity;
 import org.clubcompass.app.security.SecurityUtil;
 import org.clubcompass.app.services.club.ClubService;
 import org.clubcompass.app.services.event.EventService;
@@ -93,12 +93,9 @@ public class EventController {
     @GetMapping("/search")
     public String searchEvent(@RequestParam(value = "query") String query, Model model) {
         List<EventDto> foundEvents = eventService.search(query);
-        UserEntity user = new UserEntity();
         String username = SecurityUtil.getSessionUser();
-        if (username != null) {
-            user = userService.findByUsername(username);
-            model.addAttribute("user", user);
-        }
+        UserEntity user = userService.findByUsername(username);
+
         model.addAttribute("user", user);
         model.addAttribute("events", foundEvents);
         return "clubs/events/events-list";
@@ -107,13 +104,10 @@ public class EventController {
     @GetMapping("/all")
     public String eventList(Model model) {
         List<EventDto> events = eventService.findAll();
-        UserEntity user = new UserEntity();
         String username = SecurityUtil.getSessionUser();
-        if (username != null) {
-            user = userService.findByUsername(username);
-            model.addAttribute("user", user);
-        }
+        UserEntity user = userService.findByUsername(username);
         model.addAttribute("user", user);
+
         model.addAttribute("events", events);
         return "clubs/events/events-list";
     }
@@ -125,13 +119,10 @@ public class EventController {
         EventDto event;
         try {
             event = eventService.findById(eventId);
-            UserEntity user = new UserEntity();
             String username = SecurityUtil.getSessionUser();
-            if (username != null) {
-                user = userService.findByUsername(username);
-                model.addAttribute("user", user);
-            }
+            UserEntity user = userService.findByUsername(username);
             model.addAttribute("user", user);
+
             model.addAttribute("event", event);
             return "clubs/events/events-detail";
         } catch (NotFoundException e) {

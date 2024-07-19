@@ -3,9 +3,9 @@ package org.clubcompass.app.controllers;
 import java.util.List;
 
 import org.clubcompass.app.dto.ClubDto;
-import org.clubcompass.app.models.UserEntity;
+import org.clubcompass.app.entities.UserEntity;
 import org.clubcompass.app.security.SecurityUtil;
-import org.clubcompass.app.services.club.impl.ClubServiceImpl;
+import org.clubcompass.app.services.club.ClubServiceImpl;
 import org.clubcompass.app.services.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,13 +39,10 @@ public class ClubController {
     @GetMapping("/all")
     public String listClubs(@NotNull Model model) {
         List<ClubDto> clubs = clubService.findAll();
-        UserEntity user = new UserEntity();
         String username = SecurityUtil.getSessionUser();
-        if (username != null) {
-            user = userService.findByUsername(username);
-            model.addAttribute("user", user);
-        }
+        UserEntity user = userService.findByUsername(username);
         model.addAttribute("user", user);
+
         model.addAttribute("clubs", clubs);
         return "clubs/clubs-list";
     }
@@ -54,13 +51,10 @@ public class ClubController {
     public String clubDetail(@PathVariable("clubId") long clubId, Model model) throws NotFoundException {
 
         ClubDto club = clubService.findById(clubId);
-        UserEntity user = new UserEntity();
         String username = SecurityUtil.getSessionUser();
-        if (username != null) {
-            user = userService.findByUsername(username);
-            model.addAttribute("user", user);
-        }
+        UserEntity user = userService.findByUsername(username);
         model.addAttribute("user", user);
+
         model.addAttribute("club", club);
 
         return "clubs/clubs-detail";
@@ -70,13 +64,10 @@ public class ClubController {
     @GetMapping("/search")
     public String searchClub(@RequestParam(value = "query") String query, Model model) {
         List<ClubDto> foundClubs = clubService.search(query);
-        UserEntity user = new UserEntity();
         String username = SecurityUtil.getSessionUser();
-        if (username != null) {
-            user = userService.findByUsername(username);
-            model.addAttribute("user", user);
-        }
+        UserEntity user = userService.findByUsername(username);
         model.addAttribute("user", user);
+
         model.addAttribute("clubs", foundClubs);
         return "clubs/clubs-list";
     }

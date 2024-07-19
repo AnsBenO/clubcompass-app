@@ -1,4 +1,4 @@
-package org.clubcompass.app.models;
+package org.clubcompass.app.entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +15,13 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "roles")
 public class Role {

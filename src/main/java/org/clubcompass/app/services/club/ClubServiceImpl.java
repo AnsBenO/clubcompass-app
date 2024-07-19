@@ -1,17 +1,16 @@
-package org.clubcompass.app.services.club.impl;
+package org.clubcompass.app.services.club;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.clubcompass.app.dto.ClubDto;
+import org.clubcompass.app.entities.Club;
+import org.clubcompass.app.entities.UserEntity;
 import org.clubcompass.app.mappers.ClubMapper;
-import org.clubcompass.app.models.Club;
-import org.clubcompass.app.models.UserEntity;
 import org.clubcompass.app.repositories.ClubRepository;
 import org.clubcompass.app.repositories.UserRepository;
 import org.clubcompass.app.security.SecurityUtil;
-import org.clubcompass.app.services.club.ClubService;
 import org.springframework.stereotype.Service;
 
 import javassist.NotFoundException;
