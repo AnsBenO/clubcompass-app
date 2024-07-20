@@ -2,6 +2,7 @@ package org.clubcompass.app.controllers;
 
 import org.clubcompass.app.dto.RegistrationDto;
 import org.clubcompass.app.entities.UserEntity;
+import org.clubcompass.app.security.SecurityUtil;
 import org.clubcompass.app.services.user.UserService;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -49,18 +51,23 @@ public class AuthController {
         if (result.hasErrors()) {
             return "auth/register";
         }
+
         userService.save(user);
         return "redirect:/clubs/all";
     }
 
     @GetMapping("/login")
     public String showLoginForm(Model model, @RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "logout", required = false) String logout) {
+            @RequestParam(value = "logout", required = false) String logout, RedirectAttributes redirectAttributes) {
         if (error != null) {
             model.addAttribute("error", "Invalid credentials");
         }
         if (logout != null) {
             model.addAttribute("logout", "You have been logged out");
+        }
+        if (SecurityUtil.getSessionUser() != null) {
+            redirectAttributes.addFlashAttribute("error", "You Are Already Authenticated ");
+            return "redirect:/";
         }
         return "auth/login";
     }

@@ -5,13 +5,17 @@ import java.util.stream.Collectors;
 import org.clubcompass.app.dto.ClubDto;
 import org.clubcompass.app.dto.PartialClubDto;
 import org.clubcompass.app.entities.Club;
-import org.jetbrains.annotations.NotNull;
+
+import jakarta.validation.constraints.NotNull;
 
 public class ClubMapper {
         private ClubMapper() {
         }
 
         public static ClubDto mapToClubDto(@NotNull Club club) {
+                if (club == null) {
+                        return null;
+                }
                 return ClubDto.builder()
                                 .id(club.getId())
                                 .title(club.getTitle())
@@ -27,6 +31,9 @@ public class ClubMapper {
         }
 
         public static Club mapToClubEntity(@NotNull ClubDto clubDto) {
+                if (clubDto == null) {
+                        return null;
+                }
                 return Club.builder()
                                 .id(clubDto.getId())
                                 .title(clubDto.getTitle())
@@ -42,6 +49,9 @@ public class ClubMapper {
         }
 
         public static PartialClubDto mapToPartialClubDto(Club club) {
+                if (club == null) {
+                        return null;
+                }
                 return PartialClubDto.builder()
                                 .id(club.getId())
                                 .title(club.getTitle())
@@ -50,6 +60,9 @@ public class ClubMapper {
         }
 
         public static Club mapToClub(PartialClubDto partialClubDto) {
+                if (partialClubDto == null) {
+                        return null;
+                }
                 return Club.builder()
                                 .id(partialClubDto.getId())
                                 .title(partialClubDto.getTitle())

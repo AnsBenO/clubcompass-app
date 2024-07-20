@@ -134,7 +134,7 @@ public class EventController {
 
     @GetMapping("/{eventId}/delete")
     public String showDeleteEvent(@PathVariable long eventId,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes, Model model) {
         EventDto event;
         try {
             event = eventService.findById(eventId);
@@ -142,6 +142,7 @@ public class EventController {
                 redirectAttributes.addFlashAttribute("error", "You don't have permission to delete this event.");
                 return "redirect:/event/all";
             }
+            model.addAttribute("event", event);
             return "modals/delete-event";
 
         } catch (NotFoundException e) {

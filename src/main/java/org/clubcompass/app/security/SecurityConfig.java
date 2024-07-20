@@ -1,5 +1,6 @@
 package org.clubcompass.app.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -60,6 +61,7 @@ public class SecurityConfig {
                                 .failureUrl("/login?error=true")
 
                                 // Allow anyone to access these URLs
+
                                 .permitAll());
 
                 // Configure logout
@@ -79,6 +81,7 @@ public class SecurityConfig {
          * @param builder the authentication manager builder
          * @throws Exception if an error occurs during configuration
          */
+        @Autowired
         public void configure(AuthenticationManagerBuilder builder) throws Exception {
                 builder.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
         }

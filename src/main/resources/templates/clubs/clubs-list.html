@@ -1,208 +1,131 @@
 <!DOCTYPE html>
 
-<html
-	lang="en"
-	xmlns:th="http://thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout}"
->
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
-		/>
-		<title>clubs</title>
-		<script th:src="@{/js/deleteClubModal.js}"></script>
-	</head>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
 
-	<body>
-		<div
-			layout:fragment="body"
-			class="w-full"
-			data-location="club-list"
-			id="content"
-		>
-			<!--? Search Section -->
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>clubs</title>
+	<script th:src="@{/js/deleteClubModal.js}"></script>
+</head>
 
-			<div
-				class="search-section bg-gradient-to-r from-blue-500 to-indigo-500 p-8 shadow-xl w-full text-white"
-			>
-				<form
-					th:action="@{/clubs/search}"
-					class="max-w-md mx-auto"
-				>
-					<h1 class="text-4xl font-bold mb-4">Find Clubs</h1>
-					<h2 class="text-xl font-medium mb-6">Explore Clubs</h2>
-					<div class="relative">
-						<div
-							class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500"
-						>
-							<i class="fa-solid fa-magnifying-glass"></i>
-						</div>
-						<input
-							th:value="${param.query}"
-							type="search"
-							name="query"
-							id="query"
-							class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
-							placeholder="Search for clubs..."
-						/>
-						<button
-							type="submit"
-							class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
-						>
-							Search
-						</button>
-					</div>
-				</form>
-			</div>
-			<div class="bg-gray-50 w-full md:px-10 py-8 mb-8">
-				<!--? Clubs Section -->
-				<div class="flex flex-col lg:flex-row gap-8 my-10">
-					<!-- Topic section -->
+<body>
+	<div layout:fragment="body" class="w-full" data-location="club-list" id="content">
+		<!--? Search Section -->
+
+		<div class="search-section bg-gradient-to-r from-blue-500 to-indigo-500 p-8 shadow-xl w-full text-white">
+			<form th:action="@{/clubs/search}" class="max-w-md mx-auto">
+				<h1 class="text-4xl font-bold mb-4">Find Clubs</h1>
+				<h2 class="text-xl font-medium mb-6">Explore Clubs</h2>
+				<div class="relative">
 					<div
-						class="w-full lg:w-1/4 bg-white p-8 rounded-lg shadow-md mb-8 lg:mb-0"
-					>
-						<h3 class="text-2xl font-bold mb-4">Club Categories</h3>
-						<ul class="space-y-2">
-							<li>
-								<a
-									href="#"
-									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
-									>Product Design</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
-									>Product Roadmap</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
-									>Customer Experience</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
-									>Data Visualization</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
-									>Product Management</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
-									>Product Marketing</a
-								>
-							</li>
-							<li>
-								<a
-									href="#"
-									class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out"
-									>Product Launches</a
-								>
-							</li>
-						</ul>
+						class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-500">
+						<i class="fa-solid fa-magnifying-glass"></i>
 					</div>
+					<input th:value="${param.query}" type="search" name="query" id="query"
+						class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-500"
+						placeholder="Search for clubs..." />
+					<button type="submit"
+						class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">
+						Search
+					</button>
+				</div>
+			</form>
+		</div>
+		<div class="bg-gray-50 w-full md:px-10 py-8 mb-8">
+			<!--? Clubs Section -->
+			<div class="flex flex-col lg:flex-row gap-8 my-10">
+				<!-- Topic section -->
+				<div class="w-full lg:w-1/4 bg-white p-8 rounded-lg shadow-md mb-8 lg:mb-0">
+					<h3 class="text-2xl font-bold mb-4">Club Categories</h3>
+					<ul class="space-y-2">
+						<li>
+							<a href="#"
+								class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out">Product
+								Design</a>
+						</li>
+						<li>
+							<a href="#"
+								class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out">Product
+								Roadmap</a>
+						</li>
+						<li>
+							<a href="#"
+								class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out">Customer
+								Experience</a>
+						</li>
+						<li>
+							<a href="#"
+								class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out">Data
+								Visualization</a>
+						</li>
+						<li>
+							<a href="#"
+								class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out">Product
+								Management</a>
+						</li>
+						<li>
+							<a href="#"
+								class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out">Product
+								Marketing</a>
+						</li>
+						<li>
+							<a href="#"
+								class="text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out">Product
+								Launches</a>
+						</li>
+					</ul>
+				</div>
 
-					<div class="w-full lg:w-3/4 p-8">
-						<h3 class="text-2xl font-bold mb-4">Browse</h3>
-						<div
-							class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-						>
+				<div class="w-full lg:w-3/4 p-8">
+					<h3 class="text-2xl font-bold mb-4">Browse</h3>
+					<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+						<div th:each="club : ${clubs}" class="relative">
 							<div
-								th:each="club : ${clubs}"
-								class="relative"
-							>
-								<div
-									class="bg-white border border-gray-200 rounded-lg shadow-lg transition-transform hover:scale-105 hover:shadow-xl overflow-hidden"
-								>
-									<img
-										th:src="@{${club.photoUrl}}"
-										alt=""
-										class="w-full h-40 object-cover"
-									/>
-									<div class="p-6">
-										<a
-											th:text="${club.title}"
-											th:href="@{/clubs/{clubId}(clubId=${club.id})}"
-											class="text-2xl font-bold text-gray-800 hover:text-blue-500 transition duration-300 ease-in-out block mb-2"
-										></a>
-										<p
-											class="text-gray-600 mb-4"
-											th:text="${club.description}"
-										></p>
-										<div
-											class="flex justify-center gap-2 mt-4"
-											th:if="${user.id} == ${club.createdBy.id}"
-										>
-											<a
-												th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}"
-												class="btn flex flex-col align-middle justify-center text-center text-xs edit bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-1 px-3 rounded-md hover:from-blue-600 hover:to-indigo-600 transition duration-300 ease-in-out"
-											>
-												<i
-													class="fas fa-pencil-alt"
-												></i>
-												Edit
-											</a>
-											<button
-												type="button"
-												class="btn flex flex-col align-middle justify-center text-center text-xs delete bg-gradient-to-r from-red-500 to-pink-500 text-white py-1 px-3 rounded-md hover:from-red-600 hover:to-pink-600 transition duration-300 ease-in-out"
-												th:onclick="'showClubDeleteModal(' + ${club.id} + ')'"
-											>
-												<i class="fas fa-trash-alt"></i>
-												Delete
-											</button>
-											<a
-												th:href="@{/events/{clubId}/new(clubId=${club.id})}"
-												class="btn flex flex-col align-middle justify-center text-center text-xs create-event bg-gradient-to-r from-green-500 to-teal-500 text-white py-1 px-3 rounded-md hover:from-green-600 hover:to-teal-600 transition duration-300 ease-in-out"
-											>
-												<i class="fas fa-plus"></i>
-												Create Event
-											</a>
-										</div>
+								class="bg-white border border-gray-200 rounded-lg shadow-lg transition-transform hover:scale-105 hover:shadow-xl overflow-hidden">
+								<img th:src="@{${club.photoUrl}}" alt=""
+									class="w-full h-40 object-cover" />
+								<div class="p-6">
+									<a th:text="${club.title}"
+										th:href="@{/clubs/{clubId}(clubId=${club.id})}"
+										class="text-2xl font-bold text-gray-800 hover:text-blue-500 transition duration-300 ease-in-out block mb-2"></a>
+									<p class="text-gray-600 mb-4" th:text="${club.description}"></p>
+									<div class="flex justify-center gap-2 mt-4"
+										th:if="${user.id} == ${club.createdBy.id}">
+										<a th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}"
+											class="btn flex flex-col align-middle justify-center text-center text-xs edit bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-1 px-3 rounded-md hover:from-blue-600 hover:to-indigo-600 transition duration-300 ease-in-out">
+											<i class="fas fa-pencil-alt"></i>
+											Edit
+										</a>
+										<button type="button"
+											class="btn flex flex-col align-middle justify-center text-center text-xs delete bg-gradient-to-r from-red-500 to-pink-500 text-white py-1 px-3 rounded-md hover:from-red-600 hover:to-pink-600 transition duration-300 ease-in-out"
+											th:onclick="'showClubDeleteModal(' + ${club.id} + ')'">
+											<i class="fas fa-trash-alt"></i>
+											Delete
+										</button>
+										<a th:href="@{/events/{clubId}/new(clubId=${club.id})}"
+											class="btn flex flex-col align-middle justify-center text-center text-xs create-event bg-gradient-to-r from-green-500 to-teal-500 text-white py-1 px-3 rounded-md hover:from-green-600 hover:to-teal-600 transition duration-300 ease-in-out">
+											<i class="fas fa-plus"></i>
+											Create Event
+										</a>
 									</div>
 								</div>
 							</div>
 						</div>
+					</div>
 
-						<div
-							th:if="${clubs.isEmpty()}"
-							class="col-span-full text-center"
-						>
-							<p class="text-gray-700 text-xl">
-								No clubs available
-							</p>
-						</div>
+					<div th:if="${clubs.isEmpty()}" class="col-span-full text-center">
+						<p class="text-gray-700 text-xl">
+							No clubs available
+						</p>
 					</div>
 				</div>
-				<!--? End Clubs Section -->
-
-				<!--? ERROR MESSAGE BOX -->
-				<div
-					th:replace="~{fragments/error-message :: errorMessageBox(error=${error})}"
-				></div>
-				<div
-					th:replace="~{/fragments/success-message :: successMessageBox(message=${success})}"
-				></div>
-				<!-- ? Empty div for modals -->
-				<div class="modalDiv">
-					<!--  ? modal content here -->
-				</div>
 			</div>
+			<!--? End Clubs Section -->
+
 		</div>
-	</body>
+	</div>
+</body>
+
 </html>

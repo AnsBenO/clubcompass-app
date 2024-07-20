@@ -9,6 +9,9 @@ public class EventMapper {
     }
 
     public static Event mapToEvent(EventDto eventDto) {
+        if (eventDto == null) {
+            return null;
+        }
         return Event.builder()
                 .name(eventDto.getName())
                 .content(eventDto.getContent())
@@ -23,6 +26,9 @@ public class EventMapper {
     }
 
     public static EventDto mapToEventDto(Event event) {
+        if (event == null) {
+            return null;
+        }
         return EventDto.builder()
                 .id(event.getId())
                 .name(event.getName())

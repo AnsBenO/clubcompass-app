@@ -20,12 +20,13 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "profiles")
-public class ProfileEntity {
+public class Profile {
       @Id
       @GeneratedValue(strategy = GenerationType.IDENTITY)
       private long id;
 
-      private String profilePictureUrl;
+      @Builder.Default
+      private String profilePictureUrl = "/assets/Profile_PlaceHolder.png";
 
       private String about;
 

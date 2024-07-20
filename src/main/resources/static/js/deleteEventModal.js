@@ -1,5 +1,6 @@
 async function showEventDeleteModal(eventId) {
 	const response = await fetch(`/events/${eventId}/delete`);
+	console.log("delete modal");
 	if (response.ok) {
 		const modalDiv = document.querySelector(".modalDiv");
 		const text = await response.text();
