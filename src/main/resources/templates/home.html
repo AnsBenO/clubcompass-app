@@ -1,157 +1,99 @@
 <!DOCTYPE html>
-<html
-	lang="en"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout}"
->
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0"
-		/>
-		<title>Home</title>
-	</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/app}">
 
-	<body>
-		<div
-			layout:fragment="body"
-			id="content"
-			data-location="home"
-		>
-			<div class="bg-gray-100 p-7">
-				<div class="container mx-auto px-4 py-8">
-					<h1
-						sec:authorize="isAuthenticated()"
-						class="text-4xl font-bold text-center mb-8"
-					>
-						Welcome back
-						<span
-							class="text-blue-500"
-							th:text="${username}"
-						></span>
-						!
-					</h1>
-					<h1
-						sec:authorize="!isAuthenticated()"
-						class="text-4xl font-bold text-center mb-8"
-					>
-						Welcome to ClubCompass!
-					</h1>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Home</title>
+</head>
 
+<body>
+	<div layout:fragment="body" id="content" data-location="home">
+		<div class="bg-gray-100 p-7">
+			<div class="container mx-auto px-4 py-8">
+				<h1 sec:authorize="isAuthenticated()" class="text-4xl font-bold text-center mb-8">
+					Welcome back
+					<span class="text-blue-500" th:text="${username}"></span>
+					!
+				</h1>
+				<h1 sec:authorize="!isAuthenticated()" class="text-4xl font-bold text-center mb-8">
+					Welcome to ClubCompass!
+				</h1>
+
+				<div
+					class="max-w-3xl mx-auto text-center mb-8 bg-gradient-to-r from-blue-500 to-indigo-900 text-white p-1 rounded-xl shadow-2xl">
+					<p class="text-xl text-gray-700 font-rubik bg-gray-200 rounded-lg p-5 md:p-10">
+						ClubCompass is your ultimate guide to discovering
+						vibrant clubs and exciting events around you. With
+						our intuitive platform, you can effortlessly explore
+						a wide range of clubs catering to various interests,
+						from sports and hobbies to arts and culture. Dive
+						into a world of endless possibilities, connect with
+						like-minded individuals, and embark on unforgettable
+						adventures with ClubCompass!
+						<span class="block text-right text-sm text-gray-400 mt-2 italic">ClubCompass Team
+							<i class="fa-solid fa-cubes"></i></span>
+					</p>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					<div
-						class="max-w-3xl mx-auto text-center mb-8 bg-gradient-to-r from-blue-500 to-indigo-900 text-white p-1 rounded-xl shadow-2xl"
-					>
-						<p
-							class="text-xl text-gray-700 font-rubik bg-gray-200 rounded-lg p-5 md:p-10"
-						>
-							ClubCompass is your ultimate guide to discovering
-							vibrant clubs and exciting events around you. With
-							our intuitive platform, you can effortlessly explore
-							a wide range of clubs catering to various interests,
-							from sports and hobbies to arts and culture. Dive
-							into a world of endless possibilities, connect with
-							like-minded individuals, and embark on unforgettable
-							adventures with ClubCompass!
-							<span
-								class="block text-right text-sm text-gray-400 mt-2 italic"
-								>ClubCompass Team
-								<i class="fa-solid fa-cubes"></i
-							></span>
+						class="p-6 bg-white rounded-md shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+						<h2 class="text-xl font-semibold mb-4 flex justify-center gap-2 items-baseline">
+							<i class="fa-regular fa-compass text-blue-500"></i>
+							Explore Clubs
+						</h2>
+						<p class="text-gray-700 mb-4">
+							Discover a wide range of clubs to join and
+							engage with like-minded individuals.
 						</p>
+						<a th:href="@{/clubs/all}"
+							class="block text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 px-4 rounded-md hover:from-blue-500 hover:to-indigo-500 transition duration-300 ease-in-out">
+							Explore Clubs
+						</a>
 					</div>
-
 					<div
-						class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-					>
-						<div
-							class="p-6 bg-white rounded-md shadow-md transform hover:scale-105 transition duration-300 ease-in-out"
-						>
-							<h2
-								class="text-xl font-semibold mb-4 flex justify-center gap-2 items-baseline"
-							>
-								<i
-									class="fa-regular fa-compass text-blue-500"
-								></i>
-								Explore Clubs
-							</h2>
-							<p class="text-gray-700 mb-4">
-								Discover a wide range of clubs to join and
-								engage with like-minded individuals.
-							</p>
-							<a
-								th:href="@{/clubs/all}"
-								class="block text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 px-4 rounded-md hover:from-blue-500 hover:to-indigo-500 transition duration-300 ease-in-out"
-							>
-								Explore Clubs
-							</a>
-						</div>
-						<div
-							class="p-6 bg-white rounded-md shadow-md transform hover:scale-105 transition duration-300 ease-in-out"
-						>
-							<h2
-								class="text-xl font-semibold mb-4 flex justify-center gap-2 items-baseline"
-							>
-								<i
-									class="fa-regular fa-calendar-days text-blue-500"
-								></i>
-								Attend Events
-							</h2>
-							<p class="text-gray-700 mb-4">
-								Find exciting events happening near you and
-								connect with fellow enthusiasts.
-							</p>
-							<a
-								th:href="@{/events/all}"
-								class="block text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 px-4 rounded-md hover:from-blue-500 hover:to-indigo-500 transition duration-300 ease-in-out"
-							>
-								Attend Events
-							</a>
-						</div>
-						<div
-							class="p-6 bg-white rounded-md shadow-md transform hover:scale-105 transition duration-300 ease-in-out"
-						>
-							<h2
-								class="text-xl font-semibold mb-4 flex justify-center gap-2 items-baseline"
-							>
-								<i
-									class="fa-solid fa-cubes-stacked text-blue-500"
-								></i>
-								Create New Club
-							</h2>
-							<p class="text-gray-700 mb-4">
-								Start your own club and bring together people
-								who share your interests.
-							</p>
-							<a
-								th:href="@{/clubs/new}"
-								class="block text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 px-4 rounded-md hover:from-blue-500 hover:to-indigo-500 transition duration-300 ease-in-out"
-							>
-								Create New Club
-							</a>
-						</div>
+						class="p-6 bg-white rounded-md shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+						<h2 class="text-xl font-semibold mb-4 flex justify-center gap-2 items-baseline">
+							<i class="fa-regular fa-calendar-days text-blue-500"></i>
+							Attend Events
+						</h2>
+						<p class="text-gray-700 mb-4">
+							Find exciting events happening near you and
+							connect with fellow enthusiasts.
+						</p>
+						<a th:href="@{/events/all}"
+							class="block text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 px-4 rounded-md hover:from-blue-500 hover:to-indigo-500 transition duration-300 ease-in-out">
+							Attend Events
+						</a>
 					</div>
-
 					<div
-						class="text-center mt-8"
-						sec:authorize="!isAuthenticated()"
-					>
-						<p>Already have an account?</p>
-						<a
-							th:href="@{/login}"
-							class="text-blue-500 hover:underline"
-							>Login</a
-						>
-						<span class="mx-2">|</span>
-						<a
-							th:href="@{/register}"
-							class="text-blue-500 hover:underline"
-							>Register</a
-						>
+						class="p-6 bg-white rounded-md shadow-md transform hover:scale-105 transition duration-300 ease-in-out">
+						<h2 class="text-xl font-semibold mb-4 flex justify-center gap-2 items-baseline">
+							<i class="fa-solid fa-cubes-stacked text-blue-500"></i>
+							Create New Club
+						</h2>
+						<p class="text-gray-700 mb-4">
+							Start your own club and bring together people
+							who share your interests.
+						</p>
+						<a th:href="@{/clubs/new}"
+							class="block text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 px-4 rounded-md hover:from-blue-500 hover:to-indigo-500 transition duration-300 ease-in-out">
+							Create New Club
+						</a>
 					</div>
+				</div>
+
+				<div class="text-center mt-8" sec:authorize="!isAuthenticated()">
+					<p>Already have an account?</p>
+					<a th:href="@{/login}" class="text-blue-500 hover:underline">Login</a>
+					<span class="mx-2">|</span>
+					<a th:href="@{/register}" class="text-blue-500 hover:underline">Register</a>
 				</div>
 			</div>
 		</div>
-	</body>
+	</div>
+</body>
+
 </html>

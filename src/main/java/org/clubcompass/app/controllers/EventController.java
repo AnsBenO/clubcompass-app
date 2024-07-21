@@ -107,7 +107,6 @@ public class EventController {
         String username = SecurityUtil.getSessionUser();
         UserEntity user = userService.findByUsername(username);
         model.addAttribute("user", user);
-
         model.addAttribute("events", events);
         return "clubs/events/events-list";
     }
@@ -122,7 +121,6 @@ public class EventController {
             String username = SecurityUtil.getSessionUser();
             UserEntity user = userService.findByUsername(username);
             model.addAttribute("user", user);
-
             model.addAttribute("event", event);
             return "clubs/events/events-detail";
         } catch (NotFoundException e) {
