@@ -26,7 +26,10 @@
 
 	<!--? ERROR MESSAGE BOX -->
 	<div th:replace="~{fragments/error-message :: errorMessageBox(error=${error})}"></div>
+
+	<!-- ? SUCCESS MESSAGE BOX -->
 	<div th:replace="~{/fragments/success-message :: successMessageBox(message=${success})}"></div>
+
 	<!-- ? Empty div for modals -->
 	<div class="modalDiv">
 		<!--  ? modal content here -->
@@ -34,6 +37,7 @@
 
 	<!-- ? footer -->
 	<div th:replace="~{fragments/footer}"></div>
+
 </body>
 
 </html>
