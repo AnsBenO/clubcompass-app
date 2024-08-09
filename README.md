@@ -12,6 +12,7 @@ ClubCompass is a web application built using Spring Boot, Thymeleaf, vanilla Jav
 - **Event Search**: Find and explore events created by other users.
 - **Pop-Up Notifications**: Inform users with notifications using Thymeleaf fragments.
 - **Security**: Secure authentication and authorization with Spring Security.
+- **Containerization with Docker**: Deploy the application in a Docker container for consistent and isolated environments across different systems.
 
 ## Technologies Used
 
@@ -20,3 +21,4 @@ ClubCompass is a web application built using Spring Boot, Thymeleaf, vanilla Jav
 - **Vanilla JavaScript**: Client-side scripting to enhance user interaction.
 - **Tailwind CSS**: Utility-first CSS framework for styling the application.
 - **Spring Security**: Provides authentication and authorization features.
+- **Docker**: Containerization platform for deploying the application.
