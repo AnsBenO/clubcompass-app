@@ -6,7 +6,6 @@ import org.clubcompass.app.dto.RegistrationDto;
 import org.clubcompass.app.entities.Profile;
 import org.clubcompass.app.entities.Role;
 import org.clubcompass.app.entities.UserEntity;
-import org.clubcompass.app.mappers.UserMapper;
 import org.clubcompass.app.entities.Role.RoleName;
 import org.clubcompass.app.repositories.ProfileRepository;
 import org.clubcompass.app.repositories.RoleRepository;
