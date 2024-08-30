@@ -16,7 +16,7 @@ ClubCompass is a web application built using Spring Boot, Thymeleaf, vanilla Jav
 
 ## Technologies Used
 
-- **Spring Boot**: Backend framework for building the RESTful API and application logic.
+- **Spring Boot**: Backend framework for building the web application. 
 - **Thymeleaf**: Server-side Java template engine for rendering dynamic HTML.
 - **Vanilla JavaScript**: Client-side scripting to enhance user interaction.
 - **Tailwind CSS**: Utility-first CSS framework for styling the application.
