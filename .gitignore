@@ -35,5 +35,3 @@ build/
 ### node modules ###
 node_modules
 
-## application properties ##
-application.properties

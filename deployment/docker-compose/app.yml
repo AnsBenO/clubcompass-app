@@ -1,24 +1,5 @@
 name: "clubcompass-app"
 services:
-    clubcompass-db:
-        image: postgres:16-alpine
-        container_name: clubcompass-db
-        environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
-            - POSTGRES_DB=postgres
-            - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-        ports:
-            - "15432:5432"
-        healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U postgres"]
-            interval: 10s
-            timeout: 5s
-            retries: 5
-        deploy:
-            resources:
-                limits:
-                    memory: 700m
     clubcompass-web:
         image: ansbeno/clubcompass-web
         container_name: clubcompass-web
