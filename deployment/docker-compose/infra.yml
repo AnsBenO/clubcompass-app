@@ -7,7 +7,6 @@ services:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
             - POSTGRES_DB=postgres
-            - SPRING_JPA_HIBERNATE_DDL_AUTO=update
         ports:
             - "15432:5432"
         healthcheck:
