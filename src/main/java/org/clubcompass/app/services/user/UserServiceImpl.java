@@ -10,6 +10,7 @@ import org.clubcompass.app.entities.Role.RoleName;
 import org.clubcompass.app.repositories.ProfileRepository;
 import org.clubcompass.app.repositories.RoleRepository;
 import org.clubcompass.app.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-
+	
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
